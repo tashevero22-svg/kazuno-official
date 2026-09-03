@@ -3,37 +3,34 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>XKAZUNO OFFICIAL</title>
+<title>KAZUNO OFFICIAL</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
 body{background:#080608;color:#fff;padding-bottom:80px}
 header{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:#000;border-bottom:1px solid #D4AF37}
-.logo{display:flex;align-items:center;gap:8px;font-weight:900;color:#D4AF37;line-height:1}
-.logo img{width:40px;height:40px;border-radius:8px;border:1px solid #D4AF37}
+.logo{font-weight:900;color:#D4AF37;line-height:1}
+.logo span{color:#fff}
 .logo small{display:block;font-size:14px;letter-spacing:2px;color:#D4AF37}
 .icons{display:flex;gap:18px;font-size:20px;color:#D4AF37;cursor:pointer}
-.banner{position:relative;margin:12px;border:1px solid #D4AF37;border-radius:12px;overflow:hidden;height:180px;background:#000}
-.banner-track{display:flex;transition:0.5s}
-.banner-slide{min-width:100%;height:180px;position:relative}
-.banner-slide img{width:100%;height:100%;object-fit:cover}
-.banner-overlay{position:absolute;inset:0;background:linear-gradient(90deg,#000 20%,transparent 80%);padding:20px;display:flex;flex-direction:column;justify-content:center}
-.banner h2{color:#D4AF37;font-size:24px;line-height:1.1;text-transform:uppercase}
-.banner p{font-size:11px;margin-top:8px;color:#ccc}
+.banner{position:relative;margin:12px;border:1px solid #D4AF37;border-radius:12px;overflow:hidden;height:180px;background:linear-gradient(90deg,#000 40%,#1a1a2e); touch-action: pan-y;}
+.banner-track{display:flex;transition:0.5s; cursor: grab;}
+.banner-track:active{cursor: grabbing;}
+.banner-slide{min-width:100%;padding:20px;display:flex;justify-content:space-between;align-items:center; user-select:none;}
+.banner h2{color:#D4AF37;font-size:28px;line-height:1.1;text-transform:uppercase}
+.banner p{font-size:12px;margin-top:8px;color:#ccc}
 .badge{background:linear-gradient(#D4AF37,#a67c00);color:#000;padding:6px 14px;border-radius:20px;font-size:11px;font-weight:700;margin-top:10px;display:inline-block}
 .dots{display:flex;gap:6px;justify-content:center;position:absolute;bottom:10px;left:50%;transform:translateX(-50%)}
-.dot{width:8px;height:8px;border-radius:50%;background:#444}
+.dot{width:8px;height:8px;border-radius:50%;background:#444; cursor:pointer;}
 .dot.active{background:#D4AF37}
 .section{display:flex;justify-content:space-between;align-items:center;padding:12px 12px 6px}
 .section h3{font-size:18px}
-.section a{color:#D4AF37;text-decoration:none;font-size:13px}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 10px}
 .card{background:#111;border:1px solid #D4AF37;border-radius:10px;overflow:hidden;position:relative;cursor:pointer}
-.card img{width:100%;height:190px;object-fit:cover}
-.card-title{position:absolute;bottom:50px;left:0;right:0;text-align:center;font-weight:800;font-size:15px;text-shadow:0 2px 8px #000;line-height:1.1}
-.card-sub{font-size:8px;color:#ff9d00;text-align:center;display:block;margin-top:3px}
-.topup{margin:6px auto 10px;background:linear-gradient(#ffcf66,#D4AF37);color:#000;border:none;padding:6px 18px;border-radius:15px;font-weight:700;display:block;cursor:pointer;position:relative;z-index:2}
-.bgmi-wide{grid-column:span 2;background:#111;border:1px solid #D4AF37;border-radius:10px;display:flex;align-items:center;gap:10px;overflow:hidden}
-.bgmi-wide img{width:110px;height:110px;object-fit:cover}
+.card img{width:100%;height:160px;object-fit:cover}
+.card-title{position:absolute;bottom:40px;left:0;right:0;text-align:center;font-weight:800;font-size:16px;text-shadow:0 2px 5px #000}
+.card-sub{font-size:9px;color:#ff9d00;text-align:center}
+.topup{margin:6px auto 10px;background:linear-gradient(#ffcf66,#D4AF37);color:#000;border:none;padding:6px 18px;border-radius:15px;font-weight:700;display:block;cursor:pointer}
+.bgmi-wide{grid-column:span 2;background:#111;border:1px solid #D4AF37;border-radius:10px;display:flex;align-items:center;padding:10px;gap:10px}
 .bgmi-wide h4{font-size:18px}
 .why{margin:20px 10px;background:#111;border:1px solid #D4AF37;border-radius:12px;padding:15px}
 .why h2{color:#D4AF37;text-align:center;margin-bottom:12px}
@@ -53,29 +50,29 @@ footer a{color:#ccc;text-decoration:none;display:block;margin:3px 0}
 </head>
 <body>
 <header>
-<div class="logo"><img src="logo.png"><div>XKAZUNO<br><small>OFFICIAL</small></div></div>
+<div class="logo">KAZUNO<br><small>OFFICIAL</small></div>
 <div class="icons"><span onclick="alert('Search')">🔍</span><span onclick="alert('Notifications')">🔔</span><span onclick="alert('Profile')">👤</span></div>
 </header>
 
 <div class="banner" id="banner">
 <div class="banner-track" id="track">
-<div class="banner-slide"><img src="banner.jpg"><div class="banner-overlay"><h2>MLBB LATEST NEWS &<br>UPCOMING EVENTS</h2><p>Stay updated on new skins, events & rewards • Season 34 is now live</p><div class="badge">NEW SKIN • FREE DRAW EVENT LIVE NOW</div></div></div>
-<div class="banner-slide"><img src="bgmi.jpg"><div class="banner-overlay"><h2>BGMI UC BONUS<br>UP TO 30% EXTRA</h2><p>Instant delivery • 24/7 • Trusted by 10k+ gamers</p><div class="badge">LIMITED OFFER LIVE NOW</div></div></div>
-<div class="banner-slide"><img src="weekly.jpg"><div class="banner-overlay"><h2>WEEKLY PASS<br>SUPER SAVER DEAL</h2><p>Cheapest price guaranteed in India</p><div class="badge">BUY NOW & SAVE MORE</div></div></div>
+<div class="banner-slide"><div><h2>MLBB LATEST NEWS &<br>UPCOMING EVENTS</h2><p>Stay updated on new skins, events & rewards • Season 34 is now live</p><div class="badge">NEW SKIN • FREE DRAW EVENT LIVE NOW</div></div><div style="font-size:60px">🎮</div></div>
+<div class="banner-slide"><div><h2>BGMI UC BONUS<br>UP TO 30% EXTRA</h2><p>Instant delivery • 24/7 • Trusted by 10k+ gamers</p><div class="badge">LIMITED OFFER LIVE NOW</div></div><div style="font-size:60px">💎</div></div>
+<div class="banner-slide"><div><h2>WEEKLY PASS<br>SUPER SAVER DEAL</h2><p>Cheapest price guaranteed in India</p><div class="badge">BUY NOW & SAVE MORE</div></div><div style="font-size:60px">🎁</div></div>
 </div>
 <div class="dots" id="dots"></div>
 </div>
 
-<div class="section"><h3>Mobile Legends</h3><a href="#">View More →</a></div>
+<div class="section"><h3>Mobile Legends</h3></div>
 <div class="grid">
-<div class="card" onclick="goTopup('weekly-pass')"><img src="weekly.jpg"><div class="card-title">WEEKLY PASS</div><button class="topup">Top Up</button></div>
-<div class="card" onclick="goTopup('diamond')"><img src="diamond.jpg"><div class="card-title">MOBILE LEGENDS<br>DIAMOND 🇮🇳</div><button class="topup">Top Up</button></div>
-<div class="card" onclick="goTopup('small-packs')"><img src="small.jpg"><div class="card-title">SMALL PACKS<br><span class="card-sub">QUICK • AFFORDABLE • INSTANT ⚡</span></div><button class="topup">Top Up</button></div>
-<div class="card" onclick="goTopup('double-packs')"><img src="double.jpg"><div class="card-title">DOUBLE PACKS<br><span class="card-sub">FOR FIRST TIME RECHARGE</span></div><button class="topup">Top Up</button></div>
+<div class="card" onclick="goTopup('weekly-pass')"><img src="https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?w=400"><div class="card-title">WEEKLY PASS</div><button class="topup">Top Up</button></div>
+<div class="card" onclick="goTopup('diamond')"><img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?w=400"><div class="card-title">MOBILE LEGENDS<br>DIAMOND 🇮🇳</div><button class="topup">Top Up</button></div>
+<div class="card" onclick="goTopup('small-packs')"><img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400"><div class="card-title">SMALL PACKS<br><span class="card-sub">QUICK • AFFORDABLE • INSTANT ⚡</span></div><button class="topup">Top Up</button></div>
+<div class="card" onclick="goTopup('double-packs')"><img src="https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?w=400"><div class="card-title">DOUBLE PACKS<br><span class="card-sub">FOR FIRST TIME RECHARGE</span></div><button class="topup">Top Up</button></div>
 </div>
 
-<div class="section"><h3>BGMI</h3><a href="#">View More →</a></div>
-<div style="padding:0 10px"><div class="bgmi-wide" onclick="goTopup('bgmi-uc')"><img src="bgmi.jpg"><div><h4>BGMI UC TOP UP</h4><p style="font-size:10px;color:#aaa">UNKNOWN CASH • 60UC TO 8100UC • INSTANT DELIVERY • SECURE & FAST</p><button class="topup" style="margin:8px 0 0">Top Up</button></div></div></div>
+<div class="section"><h3>BGMI</h3></div>
+<div style="padding:0 10px"><div class="bgmi-wide" onclick="goTopup('bgmi-uc')"><div>BGMI<br>OFFICIAL<br>UC</div><div><h4>BGMI UC TOP UP</h4><p style="font-size:10px;color:#aaa">UNKNOWN CASH • 60UC TO 8100UC • INSTANT DELIVERY • SECURE & FAST</p><button class="topup" style="width:100%;margin-top:8px">Top Up</button></div></div></div>
 
 <div class="why">
 <h2>Why Choose Us?</h2>
@@ -88,7 +85,7 @@ footer a{color:#ccc;text-decoration:none;display:block;margin:3px 0}
 </div>
 
 <footer>
-<h4>XKAZUNO OFFICIAL</h4>
+<h4>KAZUNO OFFICIAL</h4>
 <p>Your trusted hub for premium in-game currencies! From Mobile Legends and BGMI and beyond - enjoy instant delivery, secure payments and 24/7 support.</p>
 <h4>Quick Links</h4>
 <a href="#">Home</a><a href="#">Store</a><a href="#">Orders</a><a href="#">Profile</a><a href="#">Terms & Conditions</a><a href="#">Privacy Policy</a>
@@ -96,23 +93,45 @@ footer a{color:#ccc;text-decoration:none;display:block;margin:3px 0}
 <div class="pay"><span>UPI</span><span>Paytm</span><span>GPay</span><span>PhonePe</span></div>
 <h4>Contact Store Owner</h4>
 <p>WhatsApp: +91 6909735297<br>Email: kazunovenuh@gmail.com</p>
-<p style="text-align:center;margin-top:15px;color:#D4AF37">© 2026 XKazuno Official. All Rights Reserved.</p>
+<p style="text-align:center;margin-top:15px;color:#D4AF37">© 2026 Kazuno Official. All Rights Reserved.</p>
 </footer>
 
 <div class="bottom-nav">
-<div class="nav-item active">🏠<br>Home</div>
-<div class="nav-item">🛒<br>Store</div>
-<div class="nav-item">📋<br>Orders</div>
-<div class="nav-item">👤<br>Profile</div>
+<div class="nav-item active" onclick="nav(this)">🏠<br>Home</div>
+<div class="nav-item" onclick="nav(this)">🛒<br>Store</div>
+<div class="nav-item" onclick="nav(this)">📋<br>Orders</div>
+<div class="nav-item" onclick="nav(this)">👤<br>Profile</div>
 </div>
 
 <script>
-let idx=0;const track=document.getElementById('track');const slides=track.children.length;
+let idx=0;
+const track=document.getElementById('track');
 const dots=document.getElementById('dots');
+const slides=track.children.length;
 for(let i=0;i<slides;i++){let d=document.createElement('div');d.className='dot'+(i==0?' active':'');d.onclick=()=>go(i);dots.appendChild(d)}
-function go(i){idx=i;track.style.transform=`translateX(-${idx*100}%)`;[...dots.children].forEach((d,j)=>d.classList.toggle('active',j==idx))}
-setInterval(()=>{idx=(idx+1)%slides;go(idx)},3000);
-function goTopup(p){window.location.href='topup.html#'+p}
+function go(i){idx=(i+slides)%slides;track.style.transform=`translateX(-${idx*100}%)`;[...dots.children].forEach((d,j)=>d.classList.toggle('active',j==idx))}
+let timer=setInterval(()=>go(idx+1),3500);
+let startX=0;
+track.addEventListener('touchstart', e=>{startX=e.touches[0].clientX; clearInterval(timer);}, {passive:true});
+track.addEventListener('touchend', e=>{
+  let endX=e.changedTouches[0].clientX;
+  let diff=startX-endX;
+  if(diff>40) go(idx+1);
+  else if(diff<-40) go(idx-1);
+  timer=setInterval(()=>go(idx+1),3500);
+});
+let isDragging=false;
+track.addEventListener('mousedown', e=>{isDragging=true; startX=e.clientX; clearInterval(timer);});
+window.addEventListener('mouseup', e=>{
+  if(!isDragging) return;
+  isDragging=false;
+  let diff=startX-e.clientX;
+  if(diff>40) go(idx+1);
+  else if(diff<-40) go(idx-1);
+  timer=setInterval(()=>go(idx+1),3500);
+});
+function goTopup(p){alert('Opening '+p+' top-up page');window.location.href='#'+p}
+function nav(el){document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));el.classList.add('active')}
 </script>
 </body>
 </html>
