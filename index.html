@@ -3,111 +3,54 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>XKAZUNO OFFICIAL</title>
+<title>KAZUNO Official</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
-body{background:#080608;color:#fff;padding-bottom:80px}
-header{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:#000;border-bottom:1px solid #D4AF37;position:sticky;top:0;z-index:10}
-.logo{font-weight:900;color:#D4AF37;line-height:1;font-size:20px}
-.logo small{display:block;font-size:14px;letter-spacing:2px}
-.icons{display:flex;gap:18px;font-size:20px;color:#D4AF37}
-.banner{position:relative;margin:12px;border:1px solid #D4AF37;border-radius:12px;overflow:hidden;height:180px;background:#000}
-.banner img{width:100%;height:100%;object-fit:cover}
-.banner-track{display:flex;transition:0.5s;height:100%}
-.banner-slide{min-width:100%;height:100%}
-.banner-slide img{width:100%;height:100%;object-fit:cover}
-.dots{display:flex;gap:6px;justify-content:center;position:absolute;bottom:10px;left:50%;transform:translateX(-50%)}
-.dot{width:8px;height:8px;border-radius:50%;background:#444}
-.dot.active{background:#D4AF37}
-.section{display:flex;justify-content:space-between;align-items:center;padding:14px 12px 8px}
-.section h3{font-size:18px}
-.section a{color:#D4AF37;text-decoration:none;font-size:13px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0a;color:#fff;font-family:Arial,sans-serif;padding-bottom:80px}
+.header{position:sticky;top:0;background:#0a0a0a;padding:10px 15px;display:flex;justify-content:space-between;align-items:center;z-index:100;border-bottom:1px solid #FFD70033}
+.header-logo{display:flex;align-items:center;gap:8px}
+.header-logo img{height:35px}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 10px}
-.card{background:#111;border:1px solid #D4AF37;border-radius:10px;overflow:hidden;position:relative;height:210px}
-.card img{width:100%;height:100%;object-fit:cover}
-.card-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.9) 35%,transparent 65%)}
-.card-content{position:absolute;bottom:0;left:0;right:0;text-align:center;padding:8px;z-index:2}
-.card-title{font-weight:800;font-size:14px;text-shadow:0 2px 5px #000;line-height:1.2}
-.card-sub{font-size:8px;color:#ff9d00}
-.topup{margin:6px auto 4px;background:linear-gradient(#ffcf66,#D4AF37);color:#000;border:none;padding:6px 16px;border-radius:15px;font-weight:700;display:block;font-size:11px}
-.bgmi-box{margin:0 10px;border:1px solid #D4AF37;border-radius:10px;overflow:hidden;height:130px;background:#111}
-.bgmi-box img{width:100%;height:100%;object-fit:cover}
-.why{margin:20px 10px;background:#111;border:1px solid #D4AF37;border-radius:12px;padding:15px}
-.why h2{color:#D4AF37;text-align:center;margin-bottom:12px;font-size:18px}
-.features{display:grid;grid-template-columns:1fr 1fr;gap:10px;text-align:center}
-.feat{background:#000;padding:10px;border-radius:8px;border:1px solid #333}
-.feat h4{color:#D4AF37;font-size:12px;margin:5px 0}
-.feat p{font-size:9px;color:#aaa}
-footer{padding:15px;background:#000;border-top:1px solid #D4AF37;margin-top:15px;font-size:12px}
-footer h4{color:#D4AF37;margin:12px 0 6px}
-footer a{color:#ccc;text-decoration:none;display:block;margin:3px 0}
-.pay{display:flex;gap:8px;flex-wrap:wrap}
-.pay span{border:1px solid #D4AF37;padding:4px 8px;border-radius:4px;font-size:10px}
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#000;border-top:1px solid #D4AF37;display:flex;justify-content:space-around;padding:8px 0}
-.nav-item{color:#D4AF37;text-align:center;font-size:11px}
-.nav-item.active{color:#fff}
+.card{border-radius:15px;overflow:hidden;position:relative;height:180px;background:#1a1a1a;border:1px solid #FFD70044}
+.card img{width:100%;height:100%;object-fit:cover;object-position:top center}
+.card-overlay{position:absolute;bottom:0;width:100%;background:linear-gradient(transparent,rgba(0,0,0,0.95));padding:10px;text-align:center}
+.topup-btn{background:#FFD700;color:#000;border:none;padding:6px 18px;border-radius:20px;font-weight:800;font-size:12px;cursor:pointer;text-decoration:none;display:inline-block}
+.bottom-nav{position:fixed;bottom:0;width:100%;background:#111;display:flex;justify-content:space-around;padding:8px 0;border-top:1px solid #333;z-index:200}
+.nav-item{text-align:center;font-size:10px;color:#888;text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:2px}
+.nav-item.active{color:#FFD700}
+.nav-item img{width:28px;height:28px;object-fit:contain}
+.logo-watermark{position:fixed;left:10px;bottom:70px;width:60px;opacity:0.9;z-index:150;background:rgba(0,0,0,0.6);border-radius:10px;padding:5px;border:1px solid #FFD70044}
 </style>
 </head>
 <body>
 
-<header>
-<div class="logo">XKAZUNO<br><small>OFFICIAL</small></div>
-<div class="icons"><span>🔍</span><span>🔔</span><span>👤</span></div>
-</header>
-
-<div class="banner" id="banner">
-<div class="banner-track" id="track">
-<div class="banner-slide"><img src="banner.jpg"></div>
-<div class="banner-slide"><img src="weekly.jpg"></div>
-<div class="banner-slide"><img src="bgmi.jpg"></div>
-</div>
-<div class="dots" id="dots"></div>
+<div class="header">
+<div class="header-logo"><img src="logo.png"><div style="font-weight:900;line-height:1"><div style="color:#FFD700;font-size:18px">XKAZUNO</div><div style="font-size:12px;letter-spacing:2px">OFFICIAL</div></div></div>
+<div style="display:flex;gap:15px;font-size:20px">🔍 🔔 👤</div>
 </div>
 
-<div class="section"><h3>Mobile Legends</h3><a href="#">View More →</a></div>
+<div style="padding:10px"><img src="banner.jpg" style="width:100%;border-radius:15px;border:1px solid #FFD70044"></div>
+
+<div style="display:flex;justify-content:space-between;padding:12px 15px;font-weight:700"><span>Mobile Legends</span><span style="color:#FFD700;font-size:12px">View More →</span></div>
 <div class="grid">
-<div class="card"><img src="weekly.jpg"><div class="card-overlay"></div><div class="card-content"><div class="card-title">WEEKLY PASS</div><button class="topup">Top Up</button></div></div>
-<div class="card"><img src="diamond.jpg"><div class="card-overlay"></div><div class="card-content"><div class="card-title">MOBILE LEGENDS<br>DIAMOND 🇮🇳</div><button class="topup">Top Up</button></div></div>
-<div class="card"><img src="small.jpg"><div class="card-overlay"></div><div class="card-content"><div class="card-title">SMALL PACKS<br><span class="card-sub">QUICK • AFFORDABLE • INSTANT ⚡</span></div><button class="topup">Top Up</button></div></div>
-<div class="card"><img src="double.jpg"><div class="card-overlay"></div><div class="card-content"><div class="card-title">DOUBLE PACKS<br><span class="card-sub">FOR FIRST TIME RECHARGE</span></div><button class="topup">Top Up</button></div></div>
+<div class="card"><img src="weekly.jpg"><div class="card-overlay"><div style="font-weight:800;font-size:13px">WEEKLY PASS</div><br><a href="https://wa.me/919999999999?text=Hi%20I%20want%20Weekly%20Pass" class="topup-btn">Top Up</a></div></div>
+<div class="card"><img src="diamond.jpg"><div class="card-overlay"><div style="font-weight:800;font-size:12px">MOBILE LEGENDS DIAMOND 🇮🇳</div><br><a href="https://wa.me/919999999999?text=Hi%20I%20want%20ML%20Diamond" class="topup-btn">Top Up</a></div></div>
+<div class="card"><img src="small.jpg"><div class="card-overlay"><div style="font-weight:800;font-size:13px">SMALL PACKS</div><div style="font-size:8px;color:#FFD700">QUICK • AFFORDABLE • INSTANT ⚡</div><br><a href="https://wa.me/919999999999?text=Hi%20I%20want%20Small%20Pack" class="topup-btn">Top Up</a></div></div>
+<div class="card"><img src="double.jpg"><div class="card-overlay"><div style="font-weight:800;font-size:13px">DOUBLE PACKS</div><div style="font-size:8px;color:#FFD700">FOR FIRST TIME RECHARGE</div><br><a href="https://wa.me/919999999999?text=Hi%20I%20want%20Double%20Pack" class="topup-btn">Top Up</a></div></div>
 </div>
 
-<div class="section"><h3>BGMI</h3><a href="#">View More →</a></div>
-<div class="bgmi-box"><img src="bgmi.jpg"></div>
+<div style="display:flex;justify-content:space-between;padding:12px 15px;font-weight:700;margin-top:10px"><span>BGMI</span><span style="color:#FFD700;font-size:12px">View More →</span></div>
+<div style="padding:0 10px 10px"><div style="border-radius:15px;overflow:hidden;position:relative;height:110px;background:#1a1a1a;border:1px solid #FFD70044;display:flex"><img src="bgmi.jpg" style="width:100%;height:100%;object-fit:cover"><div style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.85);padding:10px;border-radius:10px;text-align:center"><div style="font-weight:800;font-size:14px">BGMI UC TOP UP</div><div style="font-size:8px;color:#aaa;margin:3px 0">60UC TO 8100UC • INSTANT</div><a href="https://wa.me/919999999999?text=Hi%20I%20want%20BGMI%20UC" class="topup-btn">Top Up</a></div></div></div>
 
-<div class="why">
-<h2>Why Choose Us?</h2>
-<div class="features">
-<div class="feat"><div>⚡</div><h4>Instant Delivery</h4><p>Get your top-up instantly, 24/7.</p></div>
-<div class="feat"><div>🛡️</div><h4>Secure & Legit</h4><p>100% safe, trusted by 10k+ gamers.</p></div>
-<div class="feat"><div>💳</div><h4>Easy Payments</h4><p>UPI, Paytm, PhonePe, GPay.</p></div>
-<div class="feat"><div>🎧</div><h4>24/7 Support</h4><p>We are always here to help.</p></div>
-</div>
-</div>
-
-<footer>
-<h4>XKAZUNO OFFICIAL</h4>
-<p>Your trusted hub for premium in-game currencies! From Mobile Legends and BGMI and beyond.</p>
-<h4>We Accept</h4>
-<div class="pay"><span>UPI</span><span>Paytm</span><span>GPay</span><span>PhonePe</span></div>
-<h4>Contact</h4>
-<p>WhatsApp: +91 6909735297<br>Email: kazunovenuh@gmail.com</p>
-<p style="text-align:center;margin-top:15px;color:#D4AF37">© 2026 XKazuno Official. All Rights Reserved.</p>
-</footer>
+<!-- LEFT BOTTOM LOGO -->
+<div class="logo-watermark"><img src="logo.png" style="width:100%"></div>
 
 <div class="bottom-nav">
-<div class="nav-item active">🏠<br>Home</div>
-<div class="nav-item">🛒<br>Store</div>
-<div class="nav-item">📋<br>Orders</div>
-<div class="nav-item">👤<br>Profile</div>
+<a href="#" class="nav-item active"><span>🏠</span>Home</a>
+<a href="#" class="nav-item"><span>🛒</span>Store</a>
+<a href="https://wa.me/919999999999" class="nav-item"><span>📋</span>Orders</a>
+<a href="https://wa.me/919999999999" class="nav-item"><span>👤</span>Profile</a>
 </div>
-
-<script>
-let idx=0;const track=document.getElementById('track');const slides=track.children.length;const dots=document.getElementById('dots');
-for(let i=0;i<slides;i++){let d=document.createElement('div');d.className='dot'+(i==0?' active':'');d.onclick=()=>go(i);dots.appendChild(d)}
-function go(i){idx=i;track.style.transform=`translateX(-${idx*100}%)`;[...dots.children].forEach((d,j)=>d.classList.toggle('active',j==idx))}
-setInterval(()=>{idx=(idx+1)%slides;go(idx)},3000);
-</script>
 
 </body>
 </html>
