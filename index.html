@@ -3,54 +3,107 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KAZUNO Official</title>
+<title>Top Up - XKAZUNO OFFICIAL</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:#0a0a0a;color:#fff;font-family:Arial,sans-serif;padding-bottom:80px}
-.header{position:sticky;top:0;background:#0a0a0a;padding:10px 15px;display:flex;justify-content:space-between;align-items:center;z-index:100;border-bottom:1px solid #FFD70033}
-.header-logo{display:flex;align-items:center;gap:8px}
-.header-logo img{height:35px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 10px}
-.card{border-radius:15px;overflow:hidden;position:relative;height:180px;background:#1a1a1a;border:1px solid #FFD70044}
-.card img{width:100%;height:100%;object-fit:cover;object-position:top center}
-.card-overlay{position:absolute;bottom:0;width:100%;background:linear-gradient(transparent,rgba(0,0,0,0.95));padding:10px;text-align:center}
-.topup-btn{background:#FFD700;color:#000;border:none;padding:6px 18px;border-radius:20px;font-weight:800;font-size:12px;cursor:pointer;text-decoration:none;display:inline-block}
-.bottom-nav{position:fixed;bottom:0;width:100%;background:#111;display:flex;justify-content:space-around;padding:8px 0;border-top:1px solid #333;z-index:200}
-.nav-item{text-align:center;font-size:10px;color:#888;text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:2px}
-.nav-item.active{color:#FFD700}
-.nav-item img{width:28px;height:28px;object-fit:contain}
-.logo-watermark{position:fixed;left:10px;bottom:70px;width:60px;opacity:0.9;z-index:150;background:rgba(0,0,0,0.6);border-radius:10px;padding:5px;border:1px solid #FFD70044}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{background:#080608;color:#fff;padding-bottom:80px}
+header{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:#000;border-bottom:1px solid #D4AF37;position:sticky;top:0;z-index:10}
+.logo{font-weight:900;color:#D4AF37;line-height:1}
+.back{color:#D4AF37;font-size:20px;cursor:pointer;text-decoration:none}
+.container{padding:12px}
+.product-card{background:#111;border:1px solid #D4AF37;border-radius:12px;overflow:hidden;display:flex;gap:12px;padding:12px;margin-bottom:15px}
+.product-card img{width:90px;height:90px;border-radius:8px;object-fit:cover;border:1px solid #D4AF37}
+.product-card h2{color:#D4AF37;font-size:18px}
+.product-card p{font-size:12px;color:#aaa;margin-top:4px}
+.box{background:#111;border:1px solid #D4AF37;border-radius:12px;padding:15px;margin-bottom:15px}
+.box h3{color:#D4AF37;margin-bottom:12px;font-size:16px}
+.input-group{display:flex;gap:10px}
+.input-group div{flex:1}
+label{font-size:12px;color:#ccc;display:block;margin-bottom:5px}
+input{width:100%;padding:10px;background:#000;border:1px solid #444;border-radius:8px;color:#fff;outline:none}
+input:focus{border-color:#D4AF37}
+.help{font-size:10px;color:#aaa;margin-top:5px}
+.packages{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pkg{background:#000;border:1px solid #333;border-radius:10px;padding:12px;text-align:center;cursor:pointer;position:relative}
+.pkg.selected{border-color:#D4AF37;background:#1a1600}
+.pkg h4{font-size:14px}
+.pkg .price{color:#D4AF37;font-weight:800;margin-top:6px;font-size:16px}
+.pkg .bonus{font-size:10px;color:#0f0;background:#0f0a;border:1px solid #0f0;padding:2px 6px;border-radius:10px;margin-top:4px;display:inline-block}
+.pay-methods{display:flex;gap:8px;flex-wrap:wrap}
+.pay-btn{border:1px solid #333;background:#000;color:#fff;padding:10px 16px;border-radius:8px;cursor:pointer;font-size:13px}
+.pay-btn.selected{border-color:#D4AF37;color:#D4AF37;background:#1a1600}
+.order-summary{background:#000;border:1px dashed #D4AF37;border-radius:10px;padding:12px;font-size:13px}
+.order-summary div{display:flex;justify-content:space-between;margin:6px 0}
+.total{color:#D4AF37;font-weight:900;font-size:16px;border-top:1px solid #333;padding-top:8px;margin-top:8px}
+.buy-btn{width:100%;background:linear-gradient(#ffcf66,#D4AF37);color:#000;border:none;padding:14px;border-radius:10px;font-weight:900;font-size:16px;cursor:pointer;margin-top:15px}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#000;border-top:1px solid #D4AF37;display:flex;justify-content:space-around;padding:8px 0}
+.nav-item{color:#D4AF37;text-align:center;font-size:11px;cursor:pointer;text-decoration:none}
 </style>
 </head>
 <body>
+<header>
+<a href="index.html" class="back">←</a>
+<div class="logo">XKAZUNO OFFICIAL</div>
+<div style="width:20px"></div>
+</header>
 
-<div class="header">
-<div class="header-logo"><img src="logo.png"><div style="font-weight:900;line-height:1"><div style="color:#FFD700;font-size:18px">XKAZUNO</div><div style="font-size:12px;letter-spacing:2px">OFFICIAL</div></div></div>
-<div style="display:flex;gap:15px;font-size:20px">🔍 🔔 👤</div>
+<div class="container">
+<div class="product-card" id="productCard">
+<img id="pImg" src="">
+<div>
+<h2 id="pTitle">WEEKLY PASS</h2>
+<p id="pDesc">Instant Delivery • 24/7 Support • Secure</p>
+<p style="color:#D4AF37;margin-top:8px;font-size:12px">⭐ 4.9 • 10k+ Trusted Gamers</p>
+</div>
 </div>
 
-<div style="padding:10px"><img src="banner.jpg" style="width:100%;border-radius:15px;border:1px solid #FFD70044"></div>
-
-<div style="display:flex;justify-content:space-between;padding:12px 15px;font-weight:700"><span>Mobile Legends</span><span style="color:#FFD700;font-size:12px">View More →</span></div>
-<div class="grid">
-<div class="card"><img src="weekly.jpg"><div class="card-overlay"><div style="font-weight:800;font-size:13px">WEEKLY PASS</div><br><a href="https://wa.me/919999999999?text=Hi%20I%20want%20Weekly%20Pass" class="topup-btn">Top Up</a></div></div>
-<div class="card"><img src="diamond.jpg"><div class="card-overlay"><div style="font-weight:800;font-size:12px">MOBILE LEGENDS DIAMOND 🇮🇳</div><br><a href="https://wa.me/919999999999?text=Hi%20I%20want%20ML%20Diamond" class="topup-btn">Top Up</a></div></div>
-<div class="card"><img src="small.jpg"><div class="card-overlay"><div style="font-weight:800;font-size:13px">SMALL PACKS</div><div style="font-size:8px;color:#FFD700">QUICK • AFFORDABLE • INSTANT ⚡</div><br><a href="https://wa.me/919999999999?text=Hi%20I%20want%20Small%20Pack" class="topup-btn">Top Up</a></div></div>
-<div class="card"><img src="double.jpg"><div class="card-overlay"><div style="font-weight:800;font-size:13px">DOUBLE PACKS</div><div style="font-size:8px;color:#FFD700">FOR FIRST TIME RECHARGE</div><br><a href="https://wa.me/919999999999?text=Hi%20I%20want%20Double%20Pack" class="topup-btn">Top Up</a></div></div>
+<div class="box">
+<h3>1. Enter User ID</h3>
+<div class="input-group">
+<div><label>User ID</label><input type="text" id="uid" placeholder="e.g. 12345678"></div>
+<div><label>Server ID</label><input type="text" id="server" placeholder="e.g. 1234"></div>
+</div>
+<p class="help">How to find? Open MLBB → Profile → Your ID & Server shown below name.</p>
 </div>
 
-<div style="display:flex;justify-content:space-between;padding:12px 15px;font-weight:700;margin-top:10px"><span>BGMI</span><span style="color:#FFD700;font-size:12px">View More →</span></div>
-<div style="padding:0 10px 10px"><div style="border-radius:15px;overflow:hidden;position:relative;height:110px;background:#1a1a1a;border:1px solid #FFD70044;display:flex"><img src="bgmi.jpg" style="width:100%;height:100%;object-fit:cover"><div style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.85);padding:10px;border-radius:10px;text-align:center"><div style="font-weight:800;font-size:14px">BGMI UC TOP UP</div><div style="font-size:8px;color:#aaa;margin:3px 0">60UC TO 8100UC • INSTANT</div><a href="https://wa.me/919999999999?text=Hi%20I%20want%20BGMI%20UC" class="topup-btn">Top Up</a></div></div></div>
+<div class="box">
+<h3>2. Select Package</h3>
+<div class="packages" id="packages"></div>
+</div>
 
-<!-- LEFT BOTTOM LOGO -->
-<div class="logo-watermark"><img src="logo.png" style="width:100%"></div>
+<div class="box">
+<h3>3. Payment Method</h3>
+<div class="pay-methods">
+<div class="pay-btn selected" onclick="selectPay(this)">UPI</div>
+<div class="pay-btn" onclick="selectPay(this)">Paytm</div>
+<div class="pay-btn" onclick="selectPay(this)">GPay</div>
+<div class="pay-btn" onclick="selectPay(this)">PhonePe</div>
+</div>
+</div>
+
+<div class="box">
+<h3>Order Summary</h3>
+<div class="order-summary">
+<div><span>Product:</span><span id="sumProduct">Weekly Pass</span></div>
+<div><span>Package:</span><span id="sumPack">-</span></div>
+<div><span>Price:</span><span id="sumPrice">₹0</span></div>
+<div class="total"><span>Total Pay:</span><span id="sumTotal">₹0</span></div>
+</div>
+<button class="buy-btn" onclick="buyNow()">BUY NOW ⚡</button>
+<p style="text-align:center;font-size:11px;color:#aaa;margin-top:10px">Secure payment • Instant delivery in 2-5 mins • 24/7 support on WhatsApp: +91 6909735297</p>
+</div>
+</div>
 
 <div class="bottom-nav">
-<a href="#" class="nav-item active"><span>🏠</span>Home</a>
-<a href="#" class="nav-item"><span>🛒</span>Store</a>
-<a href="https://wa.me/919999999999" class="nav-item"><span>📋</span>Orders</a>
-<a href="https://wa.me/919999999999" class="nav-item"><span>👤</span>Profile</a>
+<a href="index.html" class="nav-item">🏠<br>Home</a>
+<a href="#" class="nav-item">🛒<br>Store</a>
+<a href="#" class="nav-item">📋<br>Orders</a>
+<a href="#" class="nav-item">👤<br>Profile</a>
 </div>
 
-</body>
-</html>
+<script>
+const products={
+'weekly-pass':{title:'WEEKLY PASS',desc:'Weekly Diamond Pass • 7 days rewards',img:'weekly.jpg',packs:[{name:'Weekly Pass x1',price:149},{name:'Weekly Pass x2',price:298,bonus:'Save ₹20'},{name:'Weekly Pass x3',price:447,bonus:'Popular'}]},
+'diamond':{title:'MOBILE LEGENDS DIAMOND',desc:'Fastest Diamond Top Up in India',img:'diamond.jpg',packs:[{name:'86 Diamonds',price:129},{name:'172 Diamonds',price:259},{name:'257 Diamonds',price:389,bonus:'+10 Bonus'},{name:'706 Diamonds',price:999,bonus:'Best Value'},{name:'1412 Diamonds',price:1999,bonus:'+100 Bonus'},{name:'3528 Diamonds',price:4999}]},
+'small-packs':{title:'SMALL PACKS',desc:'Quick • Affordable • Instant',img:'small.jpg',packs:[{name:'11 Diamonds',price:19},{name:'22 Diamonds',price:39},{name:'56 Diamonds',price:79},{name:'112 Diamonds',price:159}]},
+'double-packs':{title:'DOUBLE PACKS',desc:'For First Time Recharge Only',img:'double.jpg',packs:[{name:'Double 50',
