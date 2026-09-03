@@ -11,13 +11,18 @@ header{display:flex;justify-content:space-between;align-items:center;padding:12p
 .logo{font-weight:900;color:#D4AF37;line-height:1; display:flex; align-items:center; gap:8px;}
 .logo img{width:32px;height:32px;border-radius:50%}
 .logo small{display:block;font-size:14px;letter-spacing:2px;color:#D4AF37}
-.icons{display:flex;gap:18px;font-size:20px;color:#D4AF37;cursor:pointer}
+.icons{display:flex;gap:6px;color:#D4AF37;}
+.icon-btn{font-size:20px;padding:10px 12px;cursor:pointer;border-radius:50%;user-select:none}
+.icon-btn:active{background:#222}
 .banner{position:relative;margin:12px;border:1px solid #D4AF37;border-radius:12px;overflow:hidden;height:180px;background:#000; touch-action: pan-y;}
-.banner-track{display:flex;transition:transform 0.5s ease; cursor: grab; height:100%}
-.banner-track:active{cursor: grabbing;}
-.banner-slide{min-width:100%;height:100%;position:relative; user-select:none;}
-.banner-slide img{width:100%;height:100%;object-fit:cover}
-.dots{display:flex;gap:6px;justify-content:center;position:absolute;bottom:10px;left:50%;transform:translateX(-50%);z-index:2}
+.banner-track{display:flex;transition:transform 0.5s ease; height:100%}
+.banner-slide{min-width:100%;height:100%;position:relative; user-select:none; display:flex; align-items:center; padding:16px;}
+.banner-slide img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0.5}
+.banner-content{position:relative;z-index:2; width:75%}
+.banner h2{color:#D4AF37;font-size:22px;line-height:1.1;text-transform:uppercase}
+.banner p{font-size:11px;margin-top:8px;color:#ccc}
+.badge{background:linear-gradient(#D4AF37,#a67c00);color:#000;padding:6px 14px;border-radius:20px;font-size:10px;font-weight:700;margin-top:10px;display:inline-block}
+.dots{display:flex;gap:6px;justify-content:center;position:absolute;bottom:10px;left:50%;transform:translateX(-50%);z-index:3}
 .dot{width:8px;height:8px;border-radius:50%;background:#444; cursor:pointer;}
 .dot.active{background:#D4AF37}
 .section{display:flex;justify-content:space-between;align-items:center;padding:12px 12px 6px}
@@ -40,6 +45,7 @@ header{display:flex;justify-content:space-between;align-items:center;padding:12p
 footer{padding:15px;background:#000;border-top:1px solid #D4AF37;margin-top:15px;font-size:12px}
 footer h4{color:#D4AF37;margin:10px 0 6px}
 footer a{color:#ccc;text-decoration:none;display:block;margin:3px 0}
+footer.contact-link{color:#D4AF37;text-decoration:underline;display:inline}
 .pay{display:flex;gap:8px;flex-wrap:wrap}
 .pay span{border:1px solid #D4AF37;padding:4px 8px;border-radius:4px}
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#000;border-top:1px solid #D4AF37;display:flex;justify-content:space-around;padding:8px 0}
@@ -50,14 +56,39 @@ footer a{color:#ccc;text-decoration:none;display:block;margin:3px 0}
 <body>
 <header>
 <div class="logo"><img src="logo.png" onerror="this.style.display='none'"> <div>KAZUNO<br><small>OFFICIAL</small></div></div>
-<div class="icons"><span>🔍</span><span>🔔</span><span>👤</span></div>
+<div class="icons">
+<div class="icon-btn" onclick="alert('Search clicked')">🔍</div>
+<div class="icon-btn" onclick="alert('Notifications clicked')">🔔</div>
+<div class="icon-btn" onclick="alert('Profile clicked')">👤</div>
+</div>
 </header>
 
 <div class="banner" id="banner">
 <div class="banner-track" id="track">
-<div class="banner-slide"><img src="banner.jpg" alt="Banner"></div>
-<div class="banner-slide"><img src="bgmi.jpg" alt="BGMI"></div>
-<div class="banner-slide"><img src="banner.jpg" alt="Banner"></div>
+<div class="banner-slide">
+<img src="banner.jpg" alt="">
+<div class="banner-content">
+<h2>MLBB LATEST NEWS &<br>UPCOMING EVENTS</h2>
+<p>Stay updated on new skins, events & rewards • Season 34 is now live</p>
+<div class="badge">NEW SKIN • FREE DRAW EVENT LIVE NOW</div>
+</div>
+</div>
+<div class="banner-slide">
+<img src="bgmi.jpg" alt="">
+<div class="banner-content">
+<h2>BGMI UC BONUS<br>UP TO 30% EXTRA</h2>
+<p>Instant delivery • 24/7 • Trusted by 10k+ gamers</p>
+<div class="badge">LIMITED OFFER LIVE NOW</div>
+</div>
+</div>
+<div class="banner-slide">
+<img src="banner.jpg" alt="">
+<div class="banner-content">
+<h2>WEEKLY PASS<br>SUPER SAVER DEAL</h2>
+<p>Cheapest price guaranteed in India</p>
+<div class="badge">BUY NOW & SAVE MORE</div>
+</div>
+</div>
 </div>
 <div class="dots" id="dots"></div>
 </div>
@@ -91,7 +122,7 @@ footer a{color:#ccc;text-decoration:none;display:block;margin:3px 0}
 <h4>We Accept</h4>
 <div class="pay"><span>UPI</span><span>Paytm</span><span>GPay</span><span>PhonePe</span></div>
 <h4>Contact Store Owner</h4>
-<p>WhatsApp: +91 6909735297<br>Email: kazunovenuh@gmail.com</p>
+<p>WhatsApp: <a class="contact-link" href="https://wa.me/916909735297" target="_blank">+91 6909735297</a><br>Email: <a class="contact-link" href="mailto:kazunovenuh@gmail.com">kazunovenuh@gmail.com</a></p>
 <p style="text-align:center;margin-top:15px;color:#D4AF37">© 2026 Kazuno Official. All Rights Reserved.</p>
 </footer>
 
