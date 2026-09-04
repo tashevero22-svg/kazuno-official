@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Orders - KAZUNO OFFICIAL</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{background:#080608;color:#fff;padding-bottom:80px}
+header{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:#000;border-bottom:1px solid #D4AF37}
+.logo{font-weight:900;color:#D4AF37;line-height:1;display:flex;align-items:center;gap:8px}
+.logo small{display:block;font-size:14px;letter-spacing:2px;color:#D4AF37}
+.back{color:#D4AF37;padding:10px;cursor:pointer;font-size:14px}
+.box{border:1.5px solid #d4af37;border-radius:18px;padding:14px;margin:12px;background:#0f0f0f;text-align:center}
+.order-card{border:1px solid #8c7320;border-radius:14px;padding:14px;margin:10px 0;background:#111;text-align:left}
+.order-card .top{display:flex;justify-content:space-between;font-size:12px;color:#aaa}
+.order-card .mid{margin:8px 0;font-weight:800;color:#fff;font-size:14px}
+.order-card .price{color:#4ea6ff;font-weight:900}
+.status{padding:4px 10px;border-radius:20px;font-size:10px;font-weight:800}
+.status.pending{background:#332a00;color:#ffcc00;border:1px solid #d4af37}
+.empty{padding:40px 20px;text-align:center;color:#aaa}
+.empty div{font-size:50px;margin-bottom:10px}
+.btn{width:90%;max-width:300px;margin:20px auto;display:block;background:linear-gradient(180deg,#f5d76e,#d4af37);color:#000;font-weight:900;border:none;border-radius:12px;padding:14px;cursor:pointer;text-align:center;text-decoration:none}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#000;border-top:1px solid #D4AF37;display:flex;justify-content:space-around;padding:8px 0}
+.nav-item{color:#D4AF37;text-align:center;font-size:11px;cursor:pointer;flex:1}
+.nav-item.active{color:#fff}
+.footer{margin-top:30px;border-top:1px solid #222;padding:20px 10px;color:#aaa;font-size:13px;line-height:1.6;text-align:center}
+</style>
+</head>
+<body>
+
+<header>
+<div class="logo"><div>KAZUNO<br><small>OFFICIAL</small></div></div>
+<div style="color:#D4AF37;font-size:20px">📋 Orders</div>
+</header>
+
+<div class="back" onclick="location.href='index.html'">← Back to Home</div>
+
+<div class="box">
+<div style="font-weight:900;color:#D4AF37;font-size:16px">My Orders</div>
+<div style="font-size:11px;color:#aaa;margin-top:4px">Track your topups - MLBB & BGMI</div>
+</div>
+
+<div id="orderList" style="padding:0 12px"></div>
+
+<div class="footer">
+<b style="color:#fff">KAZUNO OFFICIAL</b><br>
+WhatsApp: +91 6909735297<br>Email: kazunovenuh@gmail.com<br><br>
+© 2026 Kazuno Official. All Rights Reserved.
+</div>
+
+<div class="bottom-nav">
+<div class="nav-item" onclick="location.href='index.html'">🏠<br>Home</div>
+<div class="nav-item" onclick="location.href='index.html#store'">🛒<br>Store</div>
+<div class="nav-item active">📋<br>Orders</div>
+<div class="nav-item" onclick="location.href='login.html'">👤<br>Profile</div>
+</div>
+
+<script>
+// Show orders saved from payNow
+let orders = JSON.parse(localStorage.getItem('kazuno_orders') || '[]');
+
+const list = document.getElementById('orderList');
+
+if(orders.length===0){
+  list.innerHTML = `
+  <div class="empty">
+    <div>📦</div>
+    <h3 style="color:#D4AF37">No Orders Yet</h3>
+    <p style="font-size:12px;margin-top:6px">Your topup orders will appear here after payment.<br>Make your first topup now!</p>
+    <a class="btn" href="index.html">Go to Store</a>
+  </div>`;
+}else{
+  list.innerHTML = orders.reverse().map(o=>`
+    <div class="order-card">
+      <div class="top"><span>${o.date}</span><span class="status pending">
