@@ -51,17 +51,24 @@ footer.contact-link{color:#D4AF37;text-decoration:underline;display:inline}
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#000;border-top:1px solid #D4AF37;display:flex;justify-content:space-around;padding:8px 0}
 .nav-item{color:#D4AF37;text-align:center;font-size:11px;cursor:pointer}
 .nav-item.active{color:#fff}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:100;display:none;align-items:center;justify-content:center;padding:20px}
+.overlay.show{display:flex}
+.popup{width:100%;max-width:380px;background:#111;border:1.5px solid #D4AF37;border-radius:12px;padding:15px}
 </style>
 </head>
 <body>
 <header>
 <div class="logo"><img src="logo.png" onerror="this.style.display='none'"> <div>KAZUNO<br><small>OFFICIAL</small></div></div>
 <div class="icons">
-<div class="icon-btn" onclick="alert('Search clicked')">🔍</div>
-<div class="icon-btn" onclick="alert('Notifications clicked')">🔔</div>
+<div class="icon-btn" onclick="openSearch()">🔍</div>
+<div class="icon-btn" onclick="openNotify()">🔔</div>
 <div class="icon-btn" onclick="window.location.href='login.html'">👤</div>
 </div>
 </header>
+
+<!-- ONLY NEW POPUPS FOR ICONS -->
+<div class="overlay" id="searchOverlay" onclick="if(event.target==this)closeSearch()"><div class="popup"><h3 style="color:#D4AF37;text-align:center;margin-bottom:10px">Search</h3><input id="searchBox" style="width:100%;padding:12px;border-radius:8px;border:1px solid #D4AF37;background:#000;color:#fff;outline:none" placeholder="Type weekly, diamond, bgmi..." oninput="filterCards(this.value)"><div id="searchMsg" style="font-size:11px;color:#aaa;margin-top:8px;text-align:center">Search Mobile Legends & BGMI packs</div><button onclick="closeSearch()" style="width:100%;margin-top:10px;padding:10px;border-radius:8px;background:linear-gradient(#ffcf66,#D4AF37);border:none;font-weight:800">Close</button></div></div>
+<div class="overlay" id="notifyOverlay" onclick="if(event.target==this)closeNotify()"><div class="popup"><h3 style="color:#D4AF37;text-align:center;margin-bottom:10px">Notifications</h3><p style="font-size:12px;padding:8px 0;border-bottom:1px solid #333">🔥 BGMI UC Bonus up to 30% EXTRA</p><p style="font-size:12px;padding:8px 0;border-bottom:1px solid #333">💎 MLBB Season 34 Live - Topup Now</p><p style="font-size:12px;padding:8px 0">⚡ Weekly Pass Cheapest in India</p><button onclick="closeNotify()" style="width:100%;margin-top:10px;padding:10px;border-radius:8px;background:linear-gradient(#ffcf66,#D4AF37);border:none;font-weight:800">OK</button></div></div>
 
 <div class="banner" id="banner">
 <div class="banner-track" id="track">
@@ -93,16 +100,16 @@ footer.contact-link{color:#D4AF37;text-decoration:underline;display:inline}
 <div class="dots" id="dots"></div>
 </div>
 
-<div class="section"><h3>Mobile Legends</h3></div>
+<div class="section" id="mlSection"><h3>Mobile Legends</h3></div>
 <div class="grid">
-<div class="card" onclick="location.href='weekly-pass.html'"><img src="weekly.jpg"><div class="card-title">WEEKLY PASS</div><button class="topup">Top Up</button></div>
-<div class="card" onclick="location.href='mlbb-diamond.html'"><img src="diamond.jpg"><div class="card-title">MOBILE LEGENDS<br>DIAMOND 🇮🇳</div><button class="topup">Top Up</button></div>
-<div class="card" onclick="location.href='small-packs.html'"><img src="small.jpg"><div class="card-title">SMALL PACKS<br><span class="card-sub">QUICK • AFFORDABLE • INSTANT ⚡</span></div><button class="topup">Top Up</button></div>
-<div class="card" onclick="location.href='double-packs.html'"><img src="double.jpg"><div class="card-title">DOUBLE PACKS<br><span class="card-sub">FOR FIRST TIME RECHARGE</span></div><button class="topup">Top Up</button></div>
+<div class="card" data-name="weekly pass" onclick="location.href='weekly-pass.html'"><img src="weekly.jpg"><div class="card-title">WEEKLY PASS</div><button class="topup">Top Up</button></div>
+<div class="card" data-name="mobile legends diamond" onclick="location.href='mlbb-diamond.html'"><img src="diamond.jpg"><div class="card-title">MOBILE LEGENDS<br>DIAMOND 🇮🇳</div><button class="topup">Top Up</button></div>
+<div class="card" data-name="small packs quick affordable instant" onclick="location.href='small-packs.html'"><img src="small.jpg"><div class="card-title">SMALL PACKS<br><span class="card-sub">QUICK • AFFORDABLE • INSTANT ⚡</span></div><button class="topup">Top Up</button></div>
+<div class="card" data-name="double packs first time recharge" onclick="location.href='double-packs.html'"><img src="double.jpg"><div class="card-title">DOUBLE PACKS<br><span class="card-sub">FOR FIRST TIME RECHARGE</span></div><button class="topup">Top Up</button></div>
 </div>
 
 <div class="section"><h3>BGMI</h3></div>
-<div style="padding:0 10px"><div class="bgmi-wide" onclick="location.href='bgmi-uc.html'"><img src="bgmi.jpg"><div><h4>BGMI UC TOP UP</h4><p style="font-size:10px;color:#aaa">UNKNOWN CASH • 60UC TO 8100UC • INSTANT DELIVERY • SECURE & FAST</p><button class="topup" style="width:100%;margin-top:8px">Top Up</button></div></div></div>
+<div style="padding:0 10px"><div class="bgmi-wide" data-name="bgmi uc top up" onclick="location.href='bgmi-uc.html'"><img src="bgmi.jpg"><div><h4>BGMI UC TOP UP</h4><p style="font-size:10px;color:#aaa">UNKNOWN CASH • 60UC TO 8100UC • INSTANT DELIVERY • SECURE & FAST</p><button class="topup" style="width:100%;margin-top:8px">Top Up</button></div></div></div>
 
 <div class="why">
 <h2>Why Choose Us?</h2>
@@ -127,9 +134,9 @@ footer.contact-link{color:#D4AF37;text-decoration:underline;display:inline}
 </footer>
 
 <div class="bottom-nav">
-<div class="nav-item active">🏠<br>Home</div>
-<div class="nav-item">🛒<br>Store</div>
-<div class="nav-item">📋<br>Orders</div>
+<div class="nav-item active" onclick="goHome()">🏠<br>Home</div>
+<div class="nav-item" onclick="goStore()">🛒<br>Store</div>
+<div class="nav-item" onclick="goOrders()">📋<br>Orders</div>
 <div class="nav-item" onclick="window.location.href='login.html'">👤<br>Profile</div>
 </div>
 
@@ -160,7 +167,22 @@ window.addEventListener('mouseup', e=>{
   else if(diff<-40) go(idx-1);
   timer=setInterval(()=>go(idx+1),3500);
 });
-function goTopup(p){alert('Opening '+p)}
+
+// ICONS ONLY - FIXED
+function openSearch(){document.getElementById('searchOverlay').classList.add('show')}
+function closeSearch(){document.getElementById('searchOverlay').classList.remove('show')}
+function openNotify(){document.getElementById('notifyOverlay').classList.add('show')}
+function closeNotify(){document.getElementById('notifyOverlay').classList.remove('show')}
+function goHome(){window.scrollTo({top:0,behavior:'smooth'})}
+function goStore(){document.getElementById('mlSection').scrollIntoView({behavior:'smooth'})}
+function goOrders(){window.location.href='orders.html'}
+function filterCards(q){
+ q=q.toLowerCase();
+ document.querySelectorAll('[data-name]').forEach(c=>{
+   c.style.display = c.getAttribute('data-name').includes(q)? '' : 'none';
+ });
+ document.getElementById('searchMsg').innerText = q? 'Filtering...' : 'Search Mobile Legends & BGMI packs';
+}
 </script>
 </body>
 </html>
