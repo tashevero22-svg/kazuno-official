@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KAZUNO Admin</title>
+<style>
+body{background:#0f0f0f;color:white;font-family:Arial;padding:20px}
+.card{background:#1e1e1e;border:1px solid #ffcc00;border-radius:12px;padding:15px;margin-bottom:12px}
+.btn{padding:8px 14px;border-radius:8px;border:none;cursor:pointer;font-weight:bold;margin-right:6px}
+.btn-green{background:#00c853;color:white}
+.btn-red{background:#ff3d00;color:white}
+.btn-yellow{background:#ffcc00;color:black}
+input{padding:10px;border-radius:8px;border:none;width:100%;margin:10px 0}
+#loginBox{max-width:350px;margin:100px auto;text-align:center;background:#1e1e1e;padding:30px;border-radius:16px;border:1px solid #ffcc00}
+</style>
+</head>
+<body>
+
+<div id="loginBox">
+<h2 style="color:#ffcc00">KAZUNO ADMIN</h2>
+<input type="password" id="pin" placeholder="Enter Admin PIN">
+<button class="btn btn-yellow" style="width:100%" onclick="login()">Login</button>
+<p style="font-size:12px;color:#aaa;margin-top:10px">Default PIN: 1234 — change in code later</p>
+</div>
+
+<div id="adminBox" style="display:none">
+<h2 style="color:#ffcc00">Orders Control Panel</h2>
+<p>Total Orders: <span id="total">0</span> | Pending: <span id="pending">0</span></p>
+<button class="btn btn-red" onclick="clearAll()">Clear All Test Orders</button>
+<button class="btn btn-yellow" onclick="loadOrders()">Refresh</button>
+<div style="margin-top:20px" id="ordersList"></div>
+</div>
+
+<script>
+const ADMIN_PIN = "1234"; // CHANGE THIS TO YOUR OWN PIN
+const STORAGE_KEY = "kazuno_orders";
+
+function login(){
+ if(document.getElementById('pin').value === ADMIN_PIN){
+  document.getElementById('loginBox').style.display='none';
+  document.getElementById('adminBox').style.display='block';
+  loadOrders();
+ } else { alert("Wrong PIN"); }
+}
+
+function getOrders(){
+ try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"); } catch(e){ return []; }
+}
+function saveOrders(orders){ localStorage.setItem(STORAGE_KEY, JSON.stringify(orders)); }
+
+function loadOrders(){
+ let orders = getOrders().reverse(); // newest first
+ document.getElementById('total').innerText = orders.length;
+ document.getElementById('pending').innerText = orders.filter(o=>o.status==='PENDING').length;
+ let html="";
+ if(orders.length===0) html="<p>No orders</p>";
+ orders.forEach((o, idx)=>{
+  let realIdx = getOrders().length - 1 - idx;
+  html+=`
+  <div class="card">
+   <div style="display:flex;justify-content:space-between">
+    <span style="color:#aaa">${o.date || ''}</span>
+    <span style="background:${o.status==='PENDING'?'#ffcc00':'#00c853'};color:${o.status==='PENDING'?'black':'white'};padding:3px 10px;border-radius:20px;font-size:12px;font-weight:bold">${o.status}</span>
+   </div>
+   <h3 style="margin:8px 0">${o.packageName || o.package || 'Package'}</h3>
+   <div style="font-size:14px;color:#ccc">UID: ${o.uid} (Zone:${o.zone}) | ${o.payMethod || 'Paytm'}<br>Order: <b style="color:white">${o.orderId || o.id}</b></div>
+   <div style="color:#4dabf5;font-weight:bold;font-size:18px;margin:6px 0">₹${o.price || o.amount}</div>
+   <div style="margin-top:10px">
+    <button class="btn btn-green" onclick="markDone(${realIdx})">✅ Mark Delivered</button>
+    <button class="btn btn-red" onclick="deleteOrder(${realIdx})">Delete</button>
+    <a class="btn btn-yellow" style="text-decoration:none" href="https://wa.me/?text=Order ${o.orderId} UID ${o.uid} delivered" target="_blank">WhatsApp</a>
+   </div>
+  </div>`;
+ });
+ document.getElementById('ordersList').innerHTML = html;
+}
+
+function markDone(i){
+ let orders = getOrders();
+ orders[i].status = "COMPLETED";
+ saveOrders(orders);
+ loadOrders();
+}
+function deleteOrder(i){
+ if(!confirm("Delete this order?")) return;
+ let orders = getOrders();
+ orders.splice(i,1);
+ saveOrders(orders);
+ loadOrders();
+}
+function clearAll(){
+ if(!confirm("Delete ALL test orders? This will clear that screenshot list.")) return;
+ localStorage.removeItem(STORAGE_KEY);
+ loadOrders();
+}
+</script>
+</body>
+</html>
