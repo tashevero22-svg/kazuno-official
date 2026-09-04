@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BGMI UC - KAZUNO OFFICIAL</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{background:#080608;color:#fff;padding:10px}
+.top-title{text-align:center;font-weight:900;font-size:20px;padding:10px 0;letter-spacing:1px}
+.box{border:1.5px solid #d4af37;border-radius:18px;padding:14px;margin:10px 0;background:#0f0f0f}
+.input-row{display:flex;gap:10px}
+.inp-uid{flex:1;background:#0d0d0d;border:1.5px solid #d4af37;border-radius:10px;padding:14px;color:#d4af37;outline:none;font-size:14px}
+.inp-uid::placeholder{color:#d4af37;opacity:.8}
+.hint{font-size:11px;color:#ccc;margin-top:10px;line-height:1.4}
+.check-btn{width:100%;background:linear-gradient(180deg,#f5d76e,#d4af37);color:#000;font-weight:900;border:none;border-radius:12px;padding:14px;margin-top:14px;cursor:pointer}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.pkg{border:1.5px solid #8c7320;border-radius:18px;padding:16px 10px;display:flex;align-items:center;gap:8px;background:#111;cursor:pointer}
+.pkg.selected{border-color:#d4af37;background:#1f1c0a;box-shadow:0 0 12px #d4af3766}
+.pkg .price{color:#4ea6ff;font-weight:900;font-size:22px}
+.pkg .label{font-size:13px}
+.pay-title{font-size:26px;font-weight:900;color:#f5d76e;margin:18px 0 8px;border-bottom:2px solid #d4af37;width:130px;padding-bottom:4px}
+.pay-box{border:1.5px solid #8c7320;border-radius:18px;padding:14px}
+.pay-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;margin-top:10px}
+.pay-opt{border:1.5px solid #444;border-radius:14px;padding:10px;text-align:center;cursor:pointer;background:#111}
+.pay-opt *{pointer-events:none}
+.pay-opt.selected{border-color:#d4af37 !important;background:#221e0a !important;box-shadow:0 0 12px #d4af37aa}
+.pay-opt div{font-size:11px;margin-top:6px}
+.terms{margin:14px 0;text-align:center;font-size:12px}
+.pay-now{display:block;width:60%;margin:10px auto;background:linear-gradient(180deg,#f5d76e,#d4af37);color:#000;font-weight:900;font-size:18px;border:none;border-radius:12px;padding:12px;cursor:pointer}
+.footer{margin-top:30px;border-top:1px solid #222;padding:20px 10px;color:#aaa;font-size:13px;line-height:1.6}
+.footer h3{color:#fff;margin-top:12px}
+.back{color:#d4af37;padding:10px;cursor:pointer}
+</style>
+</head>
+<body>
+
+<div class="back" onclick="location.href='index.html'">← Back to Home</div>
+<div class="top-title">-----Enter BGMI ID-----</div>
+
+<div class="box">
+<div class="input-row">
+<input id="uid" class="inp-uid" placeholder="Enter BGMI Character ID / UID">
+</div>
+<div class="hint">To find your BGMI UID: Open BGMI > Profile > Your ID is shown at top. Example: 5123456789<br>Enter only UID for BGMI (No Zone ID needed).</div>
+<button class="check-btn" onclick="checkUser()">CHECK USERNAME</button>
+<div id="userResult" style="text-align:center;margin-top:10px;color:#4eff88;font-weight:700;display:none"></div>
+</div>
+
+<div class="grid">
+<div class="pkg" onclick="selectPkg(this,370,'360 UC')"><div>🔥</div><div><div class="price">₹370</div><div class="label">360 UC</div></div></div>
+<div class="pkg" onclick="selectPkg(this,730,'720 UC')"><div>🔥</div><div><div class="price">₹730</div><div class="label">720 UC</div></div></div>
+<div class="pkg" onclick="selectPkg(this,1850,'1950 UC')"><div>🔥</div><div><div class="price">₹1850</div><div class="label">1950 UC</div></div></div>
+<div class="pkg" onclick="selectPkg(this,3700,'4050 UC')"><div>🔥</div><div><div class="price">₹3700</div><div class="label">4050 UC</div></div></div>
+<div class="pkg" onclick="selectPkg(this,7300,'8100 UC')"><div>🔥</div><div><div class="price">₹7300</div><div class="label">8100 UC</div></div></div>
+</div>
+
+<div class="pay-title">Payment</div>
+<div class="pay-box">
+<div style="text-align:center;font-weight:700;margin-bottom:12px">Pay using these options</div>
+<div class="pay-grid" style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px">
+
+<div class="pay-opt" onclick="selectPay(this,'Paytm')" style="border:1.5px solid #444;border-radius:14px;padding:10px;text-align:center;background:#111;cursor:pointer">
+<div style="width:48px;height:48px;background:#fff;border-radius:50%;margin:0 auto;display:flex;align-items:center;justify-content:center;font-weight:900;color:#00baf2;font-size:11px">Paytm</div>
+<div style="font-size:11px;margin-top:6px">Paytm</div>
+</div>
+
+<div class="pay-opt" onclick="selectPay(this,'GPay')" style="border:1.5px solid #444;border-radius:14px;padding:10px;text-align:center;background:#111;cursor:pointer">
+<div style="width:48px;height:48px;background:#fff;border-radius:50%;margin:0 auto;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:900"><span style="color:#4285F4">G</span></div>
+<div style="font-size:11px;margin-top:6px">GPay</div>
+</div>
+
+<div class="pay-opt" onclick="selectPay(this,'PhonePe')" style="border:1.5px solid #444;border-radius:14px;padding:10px;text-align:center;background:#111;cursor:pointer">
+<div style="width:48px;height:48px;background:#5f259f;border-radius:50%;margin:0 auto;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:20px">पे</div>
+<div style="font-size:11px;margin-top:6px">PhonePe</div>
+</div>
+
+<div class="pay-opt" onclick="selectPay(this,'UPI')" style="border:1.5px solid #444;border-radius:14px;padding:10px;text-align:center;background:#111;cursor:pointer">
+<div style="width:48px;height:48px;margin:0 auto;display:flex;align-items:center;justify-content:center;color:#7a3dff;font-weight:900;font-size:18px">UPI</div>
+<div style="font-size:11px;margin-top:6px">UPI</div>
+</div>
+
+</div>
+</div>
+
+<div class="terms" style="text-align:center;margin:14px 0;font-size:12px"><input type="checkbox" id="agree" checked> I agree to the Terms & Conditions and Privacy Policy</div>
+<button class="pay-now" onclick="payNow()" style="display:block;width:180px;margin:0 auto;background:linear-gradient(#f5d76e,#d4af37);color:#000;font-weight:900;border:none;border-radius:12px;padding:12px">PAY NOW</button>
+
+<div class="footer">
+<b style="color:#fff">KAZUNO OFFICIAL</b><br>Your trusted hub for premium in-game currencies! From Mobile Legends and BGMI and beyond - enjoy instant delivery, secure payments and 24/7 support.<br>
+<h3>Quick Links</h3>Home<br>Store<br>Orders<br>Profile<br>Terms & Conditions<br>Privacy Policy
+<h3>We Accept</h3>UPI | Paytm | GPay | PhonePe
+<h3>Contact Store Owner</h3>WhatsApp: +91 6909735297<br>Email: kazunovenuh@gmail.com<br><br>© 2026 Kazuno Official. All Rights Reserved.
+</div>
+
+<script>
+let selectedPrice=0,selectedName='',selectedPay='';
+
+function selectPkg(el,price,name){
+  document.querySelectorAll('.pkg').forEach(p=>p.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedPrice=price;
+  selectedName=name;
+}
+
+function selectPay(el,method){
+  document.querySelectorAll('.pay-opt').forEach(p=>p.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedPay=method;
+}
+
+async function checkUser(){
+  const uid=document.getElementById('uid').value.trim();
+  const res=document.getElementById('userResult');
+  if(!uid){alert('Enter BGMI ID');return}
+  res.style.display='block';
+  res.style.color='#ffcc00';
+  res.innerText='⏳ Checking BGMI ID '+uid+'...';
+  setTimeout(()=>{
+    res.style.color='#4eff88';
+    res.innerText='✅ BGMI ID Verified: '+uid+' - Ready to Topup';
+  },800);
+}
+
+function payNow(){
+  const uid=document.getElementById('uid').value.trim();
+  if(!uid){alert('Enter BGMI ID');return}
+  if(!selectedPrice){alert('Select a package');return}
+  if(!selectedPay){alert('Select payment method');return}
+  if(!document.getElementById('agree').checked){alert('Agree to Terms');return}
+  
+  const upiId="6909735297@pthdfc";
+  const note=`KAZUNO ${selectedName} BGMI UID:${uid}`;
+  const upiLink=`upi://pay?pa=${upiId}&pn=KAZUNO OFFICIAL&am=${selectedPrice}&cu=INR&tn=${encodeURIComponent(note)}`;
+  
+  window.location.href=upiLink;
+}
+</script>
+</body>
+</html>
