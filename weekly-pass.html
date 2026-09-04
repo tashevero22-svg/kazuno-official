@@ -59,26 +59,14 @@ body{background:#080608;color:#fff;padding:10px}
 <div class="pay-box">
 <div style="text-align:center;font-weight:700;margin-bottom:12px">Pay using these options</div>
 <div class="pay-grid" style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px">
-<div class="pay-opt" onclick="selectPay(this,'Paytm')" style="border:1.5px solid #444;border-radius:14px;padding:10px;text-align:center;background:#111;cursor:pointer">
-<div style="width:48px;height:48px;background:#fff;border-radius:50%;margin:0 auto;display:flex;align-items:center;justify-content:center;font-weight:900;color:#00baf2;font-size:11px">Paytm</div>
-<div style="font-size:11px;margin-top:6px">Paytm</div>
-</div>
-<div class="pay-opt" onclick="selectPay(this,'GPay')" style="border:1.5px solid #444;border-radius:14px;padding:10px;text-align:center;background:#111;cursor:pointer">
-<div style="width:48px;height:48px;background:#fff;border-radius:50%;margin:0 auto;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:900"><span style="color:#4285F4">G</span></div>
-<div style="font-size:11px;margin-top:6px">GPay</div>
-</div>
-<div class="pay-opt" onclick="selectPay(this,'PhonePe')" style="border:1.5px solid #444;border-radius:14px;padding:10px;text-align:center;background:#111;cursor:pointer">
-<div style="width:48px;height:48px;background:#5f259f;border-radius:50%;margin:0 auto;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:20px">पे</div>
-<div style="font-size:11px;margin-top:6px">PhonePe</div>
-</div>
-<div class="pay-opt" onclick="selectPay(this,'UPI')" style="border:1.5px solid #444;border-radius:14px;padding:10px;text-align:center;background:#111;cursor:pointer">
-<div style="width:48px;height:48px;margin:0 auto;display:flex;align-items:center;justify-content:center;color:#7a3dff;font-weight:900;font-size:18px">UPI</div>
-<div style="font-size:11px;margin-top:6px">UPI</div>
-</div>
+<div class="pay-opt" onclick="selectPay(this,'Paytm')"><div style="width:48px;height:48px;background:#fff;border-radius:50%;margin:0 auto;display:flex;align-items:center;justify-content:center;font-weight:900;color:#00baf2;font-size:11px">Paytm</div><div style="font-size:11px;margin-top:6px">Paytm</div></div>
+<div class="pay-opt" onclick="selectPay(this,'GPay')"><div style="width:48px;height:48px;background:#fff;border-radius:50%;margin:0 auto;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:900"><span style="color:#4285F4">G</span></div><div style="font-size:11px;margin-top:6px">GPay</div></div>
+<div class="pay-opt" onclick="selectPay(this,'PhonePe')"><div style="width:48px;height:48px;background:#5f259f;border-radius:50%;margin:0 auto;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:20px">पे</div><div style="font-size:11px;margin-top:6px">PhonePe</div></div>
+<div class="pay-opt" onclick="selectPay(this,'UPI')"><div style="width:48px;height:48px;margin:0 auto;display:flex;align-items:center;justify-content:center;color:#7a3dff;font-weight:900;font-size:18px">UPI</div><div style="font-size:11px;margin-top:6px">UPI</div></div>
 </div>
 </div>
 <div class="terms" style="text-align:center;margin:14px 0;font-size:12px"><input type="checkbox" id="agree" checked> I agree to the Terms & Conditions and Privacy Policy</div>
-<button class="pay-now" onclick="payNow()" style="display:block;width:180px;margin:0 auto;background:linear-gradient(#f5d76e,#d4af37);color:#000;font-weight:900;border:none;border-radius:12px;padding:12px">PAY NOW</button>
+<button class="pay-now" onclick="payNow()">PAY NOW</button>
 <div class="footer">
 <b style="color:#fff">KAZUNO OFFICIAL</b><br>Your trusted hub for premium in-game currencies! From Mobile Legends and BGMI and beyond - enjoy instant delivery, secure payments and 24/7 support.<br>
 <h3>Quick Links</h3>Home<br>Store<br>Orders<br>Profile<br>Terms & Conditions<br>Privacy Policy
@@ -131,7 +119,7 @@ function payNow(){
   if(!selectedPrice){alert('Select a package');return}
   if(!selectedPay){alert('Select payment method');return}
   if(!document.getElementById('agree').checked){alert('Agree to Terms');return}
-  const upiId="6909735297@ptsbi";
+  const upiId="kazunovenuh@oksbi";
   const note=`KAZUNO ${selectedName} UID:${uid} Zone:${zid}`;
   const upiLink=`upi://pay?pa=${upiId}&pn=KAZUNO OFFICIAL&am=${selectedPrice}&cu=INR&tn=${encodeURIComponent(note)}`;
   let all = JSON.parse(localStorage.getItem('kazuno_orders') || '[]');
