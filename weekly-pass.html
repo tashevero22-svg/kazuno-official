@@ -125,7 +125,18 @@ function payNow(){
   let all = JSON.parse(localStorage.getItem('kazuno_orders') || '[]');
   all.push({id:'KZ'+Date.now().toString().slice(-6),uid:uid,zid:zid,item:selectedName,price:selectedPrice,pay:selectedPay,date:new Date().toLocaleString()});
   localStorage.setItem('kazuno_orders', JSON.stringify(all));
-  window.location.href=upiLink;
+  if(selectedPay==='Paytm'){
+    window.location.href=`intent://pay?pa=${upiId}&pn=KAZUNO%20OFFICIAL&am=${selectedPrice}&cu=INR&tn=${encodeURIComponent(note)}#Intent;scheme=upi;package=net.one97.paytm;end`;
+    setTimeout(()=>{ window.location.href=upiLink; },1200);
+  }else if(selectedPay==='GPay'){
+    window.location.href=`intent://pay?pa=${upiId}&pn=KAZUNO%20OFFICIAL&am=${selectedPrice}&cu=INR&tn=${encodeURIComponent(note)}#Intent;scheme=upi;package=com.google.android.apps.nbu.paisa.user;end`;
+    setTimeout(()=>{ window.location.href=upiLink; },1200);
+  }else if(selectedPay==='PhonePe'){
+    window.location.href=`intent://pay?pa=${upiId}&pn=KAZUNO%20OFFICIAL&am=${selectedPrice}&cu=INR&tn=${encodeURIComponent(note)}#Intent;scheme=upi;package=com.phonepe.app;end`;
+    setTimeout(()=>{ window.location.href=upiLink; },1200);
+  }else{
+    window.location.href=upiLink;
+  }
 }
 </script>
 </body>
