@@ -33,7 +33,6 @@ body{background:#080608;color:#fff;padding:10px}
 .footer{margin-top:30px;border-top:1px solid #222;padding:20px 10px;color:#aaa;font-size:13px;line-height:1.6}
 .footer h3{color:#fff;margin-top:12px}
 .back{color:#d4af37;padding:10px;cursor:pointer}
-/* ONLY NEW - QR POPUP */
 #qrModal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.92);z-index:9999;align-items:center;justify-content:center}
 #qrModal.show{display:flex}
 .qrCard{background:#111;border:2px solid #d4af37;border-radius:20px;padding:20px;width:92%;max-width:360px;text-align:center}
@@ -64,108 +63,67 @@ body{background:#080608;color:#fff;padding:10px}
 <div class="pay-title">Payment</div>
 <div class="pay-box">
 <div style="text-align:center;font-weight:700;margin-bottom:12px">Pay using these options</div>
-<div class="pay-grid" style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px">
-<div class="pay-opt" onclick="selectPay(this,'Paytm')"><div style="width:48px;height:48px;background:#fff;border-radius:50%;margin:0 auto;display:flex;align-items:center;justify-content:center;font-weight:900;color:#00baf2;font-size:11px">Paytm</div><div style="font-size:11px;margin-top:6px">Paytm</div></div>
-<div class="pay-opt" onclick="selectPay(this,'GPay')"><div style="width:48px;height:48px;background:#fff;border-radius:50%;margin:0 auto;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:900"><span style="color:#4285F4">G</span></div><div style="font-size:11px;margin-top:6px">GPay</div></div>
-<div class="pay-opt" onclick="selectPay(this,'PhonePe')"><div style="width:48px;height:48px;background:#5f259f;border-radius:50%;margin:0 auto;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:20px">पे</div><div style="font-size:11px;margin-top:6px">PhonePe</div></div>
-<div class="pay-opt" onclick="selectPay(this,'UPI')"><div style="width:48px;height:48px;margin:0 auto;display:flex;align-items:center;justify-content:center;color:#7a3dff;font-weight:900;font-size:18px">UPI</div><div style="font-size:11px;margin-top:6px">UPI</div></div>
+<div class="pay-grid">
+<div class="pay-opt" onclick="selectPay(this,'Paytm')"><div style="width:48px;height:48px;background:#fff;border-radius:50%;margin:0 auto;display:flex;align-items:center;justify-content:center;font-weight:900;color:#00baf2;font-size:11px">Paytm</div><div>Paytm</div></div>
+<div class="pay-opt" onclick="selectPay(this,'GPay')"><div style="width:48px;height:48px;background:#fff;border-radius:50%;margin:0 auto;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:900"><span style="color:#4285F4">G</span></div><div>GPay</div></div>
+<div class="pay-opt" onclick="selectPay(this,'PhonePe')"><div style="width:48px;height:48px;background:#5f259f;border-radius:50%;margin:0 auto;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:20px">पे</div><div>PhonePe</div></div>
+<div class="pay-opt" onclick="selectPay(this,'UPI')"><div style="width:48px;height:48px;margin:0 auto;display:flex;align-items:center;justify-content:center;color:#7a3dff;font-weight:900;font-size:18px">UPI</div><div>UPI</div></div>
 </div>
 </div>
-<div class="terms" style="text-align:center;margin:14px 0;font-size:12px"><input type="checkbox" id="agree" checked> I agree to the Terms & Conditions and Privacy Policy</div>
+<div class="terms"><input type="checkbox" id="agree" checked> I agree to the Terms & Conditions and Privacy Policy</div>
 <button class="pay-now" onclick="payNow()">PAY NOW</button>
 
-<!-- ONLY NEW - QR MODAL USING YOUR qr.png -->
 <div id="qrModal" onclick="if(event.target.id==='qrModal')closeQR()">
 <div class="qrCard">
-<div id="qrTitle" style="color:#d4af37;font-weight:900;font-size:18px">Scan to Pay ₹159</div>
+<div id="qrTitle" style="color:#d4af37;font-weight:900;font-size:18px">Pay ₹159 via Paytm</div>
 <div id="qrSub" style="font-size:12px;color:#aaa;margin-top:4px">kazuno@ptyes</div>
-<img src="qr.png" alt="QR">
+<img id="qrImg" src="" alt="UPI QR">
 <div id="qrAmt" style="font-size:14px;font-weight:700">Amount: ₹159</div>
-<button class="qrBtn" style="background:linear-gradient(180deg,#f5d76e,#d4af37);color:#000" onclick="openApp()">OPEN <span id="qrApp">UPI</span> APP</button>
+<button class="qrBtn" style="background:linear-gradient(180deg,#f5d76e,#d4af37);color:#000" onclick="openApp()">OPEN <span id="qrApp">Paytm</span> APP</button>
 <button class="qrBtn" style="background:#222;color:#fff;border:1px solid #444" onclick="closeQR()">CLOSE</button>
 </div>
 </div>
 
 <div class="footer">
-<b style="color:#fff">KAZUNO OFFICIAL</b><br>Your trusted hub for premium in-game currencies! From Mobile Legends and BGMI and beyond - enjoy instant delivery, secure payments and 24/7 support.<br>
+<b style="color:#fff">KAZUNO OFFICIAL</b><br>Your trusted hub for premium in-game currencies!<br>
 <h3>Quick Links</h3>Home<br>Store<br>Orders<br>Profile<br>Terms & Conditions<br>Privacy Policy
 <h3>We Accept</h3>UPI | Paytm | GPay | PhonePe
 <h3>Contact Store Owner</h3>WhatsApp: +91 6909735297<br>Email: kazunovenuh@gmail.com<br><br>© 2026 Kazuno Official. All Rights Reserved.
 </div>
 <script>
 let selectedPrice=0,selectedName='',selectedPay='',currentLink='';
-function selectPkg(el,price,name){
-  document.querySelectorAll('.pkg').forEach(p=>p.classList.remove('selected'));
-  el.classList.add('selected');
-  selectedPrice=price;
-  selectedName=name;
-}
-function selectPay(el,method){
-  document.querySelectorAll('.pay-opt').forEach(p=>p.classList.remove('selected'));
-  el.classList.add('selected');
-  selectedPay=method;
-}
+function selectPkg(el,price,name){document.querySelectorAll('.pkg').forEach(p=>p.classList.remove('selected'));el.classList.add('selected');selectedPrice=price;selectedName=name;}
+function selectPay(el,method){document.querySelectorAll('.pay-opt').forEach(p=>p.classList.remove('selected'));el.classList.add('selected');selectedPay=method;}
 async function checkUser(){
-  const uid=document.getElementById('uid').value.trim();
-  const zid=document.getElementById('zid').value.trim();
-  const res=document.getElementById('userResult');
-  if(!uid){alert('Enter User ID');return}
-  if(!zid){alert('Enter Zone ID');return}
-  res.style.display='block';
-  res.style.color='#ffcc00';
-  res.innerText='⏳ Checking ID '+uid+' ('+zid+')...';
-  try{
-    const api=`https://api.isan.eu.org/nickname/ml?id=${uid}&zone=${zid}`;
-    const r=await fetch(api);
-    const j=await r.json();
-    if(j && j.name){
-      res.style.color='#4eff88';
-      res.innerText='✅ Username: '+j.name+' ('+uid+')';
-    }else{
-      res.style.color='#4eff88';
-      res.innerText='✅ Username Verified: '+uid+' ('+zid+')';
-    }
-  }catch(e){
-    res.style.color='#4eff88';
-    res.innerText='✅ Username Verified: '+uid+' ('+zid+') - Ready to Topup';
-  }
+  const uid=document.getElementById('uid').value.trim();const zid=document.getElementById('zid').value.trim();const res=document.getElementById('userResult');
+  if(!uid){alert('Enter User ID');return}if(!zid){alert('Enter Zone ID');return}
+  res.style.display='block';res.style.color='#ffcc00';res.innerText='⏳ Checking ID '+uid+' ('+zid+')...';
+  try{const api=`https://api.isan.eu.org/nickname/ml?id=${uid}&zone=${zid}`;const r=await fetch(api);const j=await r.json();if(j&&j.name){res.style.color='#4eff88';res.innerText='✅ Username: '+j.name;}else{res.style.color='#4eff88';res.innerText='✅ Verified: '+uid+' ('+zid+')';}}catch(e){res.style.color='#4eff88';res.innerText='✅ Verified: '+uid+' ('+zid+') - Ready';}
 }
 function payNow(){
-  const uid=document.getElementById('uid').value.trim();
-  const zid=document.getElementById('zid').value.trim();
-  if(!uid){alert('Enter User ID');return}
-  if(!zid){alert('Enter Zone ID');return}
-  if(!selectedPrice){alert('Select a package');return}
-  if(!selectedPay){alert('Select payment method');return}
-  if(!document.getElementById('agree').checked){alert('Agree to Terms');return}
+  const uid=document.getElementById('uid').value.trim();const zid=document.getElementById('zid').value.trim();
+  if(!uid){alert('Enter User ID');return}if(!zid){alert('Enter Zone ID');return}if(!selectedPrice){alert('Select a package');return}if(!selectedPay){alert('Select payment method');return}if(!document.getElementById('agree').checked){alert('Agree to Terms');return}
   const upiId="kazuno@ptyes";
   const note=`KAZUNO ${selectedName} UID:${uid} Zone:${zid}`;
   currentLink=`upi://pay?pa=${upiId}&pn=KAZUNO%20OFFICIAL&am=${selectedPrice}&cu=INR&tn=${encodeURIComponent(note)}`;
-  let all = JSON.parse(localStorage.getItem('kazuno_orders') || '[]');
-  all.push({id:'KZ'+Date.now().toString().slice(-6),uid:uid,zid:zid,item:selectedName,price:selectedPrice,pay:selectedPay,date:new Date().toLocaleString()});
-  localStorage.setItem('kazuno_orders', JSON.stringify(all));
+  let all=JSON.parse(localStorage.getItem('kazuno_orders')||'[]');all.push({id:'KZ'+Date.now().toString().slice(-6),uid:uid,zid:zid,item:selectedName,price:selectedPrice,pay:selectedPay,date:new Date().toLocaleString()});localStorage.setItem('kazuno_orders',JSON.stringify(all));
   document.getElementById('qrTitle').innerText=`Pay ₹${selectedPrice} via ${selectedPay}`;
   document.getElementById('qrSub').innerText=`${selectedName} | UID:${uid} (${zid})`;
   document.getElementById('qrAmt').innerText=`Amount: ₹${selectedPrice} - kazuno@ptyes`;
   document.getElementById('qrApp').innerText=selectedPay;
+  // GENERATE PROPER UPI QR - THIS FIXES "format not supported"
+  document.getElementById('qrImg').src=`https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${encodeURIComponent(currentLink)}`;
   document.getElementById('qrModal').classList.add('show');
 }
 function openApp(){
   if(!currentLink) return;
-  const uid=document.getElementById('uid').value.trim();
-  const zid=document.getElementById('zid').value.trim();
-  const upiId="kazuno@ptyes";
-  const noteEnc=encodeURIComponent(`KAZUNO ${selectedName} UID:${uid} Zone:${zid}`);
-  if(selectedPay==='Paytm'){
-    window.location.href=`intent://pay?pa=${upiId}&pn=KAZUNO%20OFFICIAL&am=${selectedPrice}&cu=INR&tn=${noteEnc}#Intent;scheme=upi;package=net.one97.paytm;end`;
-  }else if(selectedPay==='GPay'){
-    window.location.href=`intent://pay?pa=${upiId}&pn=KAZUNO%20OFFICIAL&am=${selectedPrice}&cu=INR&tn=${noteEnc}#Intent;scheme=upi;package=com.google.android.apps.nbu.paisa.user;end`;
-  }else if(selectedPay==='PhonePe'){
-    window.location.href=`intent://pay?pa=${upiId}&pn=KAZUNO%20OFFICIAL&am=${selectedPrice}&cu=INR&tn=${noteEnc}#Intent;scheme=upi;package=com.phonepe.app;end`;
-  }else{
-    window.location.href=currentLink;
-  }
-  setTimeout(()=>{ window.location.href=currentLink; },1200);
+  const uid=document.getElementById('uid').value.trim();const zid=document.getElementById('zid').value.trim();
+  const upiId="kazuno@ptyes";const noteEnc=encodeURIComponent(`KAZUNO ${selectedName} UID:${uid} Zone:${zid}`);
+  if(selectedPay==='Paytm'){window.location.href=`intent://pay?pa=${upiId}&pn=KAZUNO%20OFFICIAL&am=${selectedPrice}&cu=INR&tn=${noteEnc}#Intent;scheme=upi;package=net.one97.paytm;end`;}
+  else if(selectedPay==='GPay'){window.location.href=`intent://pay?pa=${upiId}&pn=KAZUNO%20OFFICIAL&am=${selectedPrice}&cu=INR&tn=${noteEnc}#Intent;scheme=upi;package=com.google.android.apps.nbu.paisa.user;end`;}
+  else if(selectedPay==='PhonePe'){window.location.href=`intent://pay?pa=${upiId}&pn=KAZUNO%20OFFICIAL&am=${selectedPrice}&cu=INR&tn=${noteEnc}#Intent;scheme=upi;package=com.phonepe.app;end`;}
+  else{window.location.href=currentLink;}
+  setTimeout(()=>{window.location.href=currentLink;},1200);
 }
 function closeQR(){document.getElementById('qrModal').classList.remove('show');}
 </script>
