@@ -33,7 +33,6 @@ body{background:#080608;color:#fff;padding:10px}
 .footer{margin-top:30px;border-top:1px solid #222;padding:20px 10px;color:#aaa;font-size:13px;line-height:1.6}
 .footer h3{color:#fff;margin-top:12px}
 .back{color:#d4af37;padding:10px;cursor:pointer}
-/* ONLY NEW PART FOR QR */
 .qr-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.85);z-index:9999;align-items:center;justify-content:center;padding:15px}
 .qr-overlay.show{display:flex}
 .qr-card{background:#111;border:2px solid #d4af37;border-radius:20px;padding:20px;max-width:360px;width:100%;text-align:center}
@@ -80,8 +79,6 @@ body{background:#080608;color:#fff;padding:10px}
 <h3>We Accept</h3>UPI | Paytm | GPay | PhonePe
 <h3>Contact Store Owner</h3>WhatsApp: +91 6909735297<br>Email: kazunovenuh@gmail.com<br><br>© 2026 Kazuno Official. All Rights Reserved.
 </div>
-
-<!-- ONLY NEW QR POPUP -->
 <div id="qrOverlay" class="qr-overlay" onclick="if(event.target==this)closeQR()">
 <div class="qr-card">
 <div style="font-weight:900;color:#f5d76e">Scan & Pay</div>
@@ -93,7 +90,6 @@ body{background:#080608;color:#fff;padding:10px}
 <div style="font-size:10px;color:#888;margin-top:10px">If Paytm fails, scan QR with GPay / PhonePe</div>
 </div>
 </div>
-
 <script>
 let selectedPrice=0,selectedName='',selectedPay='',currentLink='';
 function selectPkg(el,price,name){
@@ -140,13 +136,12 @@ function payNow(){
   if(!selectedPrice){alert('Select a package');return}
   if(!selectedPay){alert('Select payment method');return}
   if(!document.getElementById('agree').checked){alert('Agree to Terms');return}
-  const upiId="kazunovenuh@oksbi";
+  const upiId="kazuno@ptyes";
   const note=`KAZUNO ${selectedName} UID:${uid} Zone:${zid}`;
   currentLink=`upi://pay?pa=${upiId}&pn=KAZUNO OFFICIAL&am=${selectedPrice}&cu=INR&tn=${encodeURIComponent(note)}`;
   let all = JSON.parse(localStorage.getItem('kazuno_orders') || '[]');
   all.push({id:'KZ'+Date.now().toString().slice(-6),uid:uid,zid:zid,item:selectedName,price:selectedPrice,pay:selectedPay,date:new Date().toLocaleString()});
   localStorage.setItem('kazuno_orders', JSON.stringify(all));
-  // FIXED PART: Show Dynamic QR instead of direct redirect
   document.getElementById('qrAmt').innerText='₹'+selectedPrice+' - '+selectedName;
   document.getElementById('qrInfo').innerText=upiId+' | UID:'+uid+'('+zid+')';
   document.getElementById('qrImg').src='https://api.qrserver.com/v1/create-qr-code/?size=400x400&data='+encodeURIComponent(currentLink);
