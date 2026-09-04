@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MLBB Small Packs - KAZUNO OFFICIAL</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{background:#080608;color:#fff;padding-bottom:80px}
+header{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:#000;border-bottom:1px solid #D4AF37;position:sticky;top:0;z-index:10}
+.logo{font-weight:900;color:#D4AF37;line-height:1; display:flex; align-items:center; gap:8px;}
+.logo img{width:32px;height:32px;border-radius:50%}
+.logo small{display:block;font-size:14px;letter-spacing:2px;color:#D4AF37}
+.back-btn{background:#111;border:1px solid #D4AF37;color:#D4AF37;padding:6px 14px;border-radius:20px;font-size:12px;cursor:pointer}
+.title{padding:16px 12px 8px;text-align:center}
+.title h2{color:#D4AF37;font-size:22px}
+.title p{font-size:11px;color:#aaa;margin-top:4px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:10px}
+.card{background:#111;border:1px solid #D4AF37;border-radius:12px;padding:12px;text-align:center;cursor:pointer;position:relative}
+.card:hover{border-color:#ffcf66;transform:scale(1.02);transition:0.2s}
+.dia{font-size:28px;font-weight:900;color:#D4AF37}
+.dia small{font-size:14px}
+.label{font-size:12px;color:#fff;margin:4px 0}
+.bonus{font-size:10px;color:#00ff88;background:#00331a;padding:2px 6px;border-radius:10px;display:inline-block;margin-top:2px}
+.price{margin-top:8px;background:linear-gradient(#ffcf66,#D4AF37);color:#000;border:none;padding:7px 16px;border-radius:20px;font-weight:800;font-size:13px;width:100%;cursor:pointer}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#000;border-top:1px solid #D4AF37;display:flex;justify-content:space-around;padding:8px 0}
+.nav-item{color:#D4AF37;text-align:center;font-size:11px;cursor:pointer}
+</style>
+</head>
+<body>
+<header>
+<div class="logo" onclick="location.href='index.html'"><img src="logo.png" onerror="this.style.display='none'"><div>KAZUNO<br><small>OFFICIAL</small></div></div>
+<button class="back-btn" onclick="location.href='index.html'">← Back</button>
+</header>
+
+<div class="title">
+<h2>SMALL PACKS</h2>
+<p>QUICK • AFFORDABLE • INSTANT ⚡</p>
+</div>
+
+<div class="grid">
+<div class="card" onclick="buyPack(5,11)">
+<div class="dia">5<small> 💎</small></div>
+<div class="label">Diamonds</div>
+<div class="bonus">Small Pack</div>
+<button class="price">₹11</button>
+</div>
+
+<div class="card" onclick="buyPack(14,30)">
+<div class="dia">14<small> 💎</small></div>
+<div class="label">Diamonds</div>
+<div class="bonus">Small Pack</div>
+<button class="price">₹30</button>
+</div>
+
+<div class="card" onclick="buyPack(22,45)">
+<div class="dia">22<small> 💎</small></div>
+<div class="label">Diamonds</div>
+<div class="bonus">Small Pack</div>
+<button class="price">₹45</button>
+</div>
+
+<div class="card" onclick="buyPack(28,60)">
+<div class="dia">28<small> 💎</small></div>
+<div class="label">Diamonds</div>
+<div class="bonus">Small Pack</div>
+<button class="price">₹60</button>
+</div>
+
+<div class="card" onclick="buyPack(42,85)">
+<div class="dia">42<small> 💎</small></div>
+<div class="label">Diamonds</div>
+<div class="bonus">Popular</div>
+<button class="price">₹85</button>
+</div>
+
+<div class="card" onclick="buyPack(56,95)">
+<div class="dia">56<small> 💎</small></div>
+<div class="label">Diamonds</div>
+<div class="bonus">Best Value</div>
+<button class="price">₹95</button>
+</div>
+</div>
+
+<div class="bottom-nav">
+<div class="nav-item" onclick="location.href='index.html'">🏠<br>Home</div>
+<div class="nav-item">🛒<br>Store</div>
+<div class="nav-item">📋<br>Orders</div>
+<div class="nav-item" onclick="location.href='login.html'">👤<br>Profile</div>
+</div>
+
+<script>
+function buyPack(diamond, price){
+  // Later connect to payment - for now redirect to order
+  let msg = `Selected: ${diamond} Diamonds for ₹${price}%0A%0AWhatsApp: +91 6909735297`;
+  window.open(`https://wa.me/916909735297?text=${msg}`, '_blank');
+}
+</script>
+</body>
+</html>
