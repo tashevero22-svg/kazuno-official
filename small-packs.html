@@ -147,6 +147,25 @@ function payNow(){
   if(!selectedPay){alert('Select payment method');return}
   if(!document.getElementById('agree').checked){alert('Agree to Terms');return}
   
+  // ---- ONLY NEW PART - SAVE TO ADMIN ----
+  const orderId = 'KZ' + Date.now();
+  const order = {
+    id: orderId,
+    game: 'Small Packs',
+    package: selectedName,
+    amount: selectedPrice,
+    uid: uid,
+    zone: zid,
+    payMethod: selectedPay,
+    status: 'PENDING',
+    date: new Date().toLocaleString()
+  };
+  let all = JSON.parse(localStorage.getItem('kazuno_orders') || '[]');
+  all.unshift(order);
+  localStorage.setItem('kazuno_orders', JSON.stringify(all));
+  localStorage.setItem('orders', JSON.stringify(all));
+  // ---- END NEW PART ----
+
   const upiId="6909735297@pthdfc";
   const note=`KAZUNO ${selectedName} UID:${uid} Zone:${zid}`;
   const upiLink=`upi://pay?pa=${upiId}&pn=KAZUNO OFFICIAL&am=${selectedPrice}&cu=INR&tn=${encodeURIComponent(note)}`;
