@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Weekly Pass - KAZUNO OFFICIAL</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
 body{background:#080608;color:#fff;padding:10px}
@@ -38,6 +39,8 @@ body{background:#080608;color:#fff;padding:10px}
 .qrCard{background:#111;border:2px solid #d4af37;border-radius:20px;padding:20px;width:92%;max-width:360px;text-align:center}
 .qrCard img{width:260px;height:260px;background:#fff;padding:10px;border-radius:14px;margin:12px 0}
 .qrBtn{width:100%;padding:12px;border:none;border-radius:10px;font-weight:900;margin-top:8px;cursor:pointer}
+#qrDiv{width:260px;height:260px;background:#fff;padding:10px;border-radius:14px;margin:12px auto;display:flex;align-items:center;justify-content:center}
+#qrDiv img{margin:0 auto}
 </style>
 </head>
 <body>
@@ -77,7 +80,7 @@ body{background:#080608;color:#fff;padding:10px}
 <div class="qrCard">
 <div id="qrTitle" style="color:#d4af37;font-weight:900;font-size:18px">Pay ₹159 via Paytm</div>
 <div id="qrSub" style="font-size:12px;color:#aaa;margin-top:4px">kazuno@ptyes</div>
-<img id="qrImg" src="" alt="UPI QR">
+<div id="qrDiv"></div>
 <div id="qrAmt" style="font-size:14px;font-weight:700">Amount: ₹159</div>
 <button class="qrBtn" style="background:linear-gradient(180deg,#f5d76e,#d4af37);color:#000" onclick="openApp()">OPEN <span id="qrApp">Paytm</span> APP</button>
 <button class="qrBtn" style="background:#222;color:#fff;border:1px solid #444" onclick="closeQR()">CLOSE</button>
@@ -104,28 +107,35 @@ function payNow(){
   const uid=document.getElementById('uid').value.trim();const zid=document.getElementById('zid').value.trim();
   if(!uid){alert('Enter User ID');return}if(!zid){alert('Enter Zone ID');return}if(!selectedPrice){alert('Select a package');return}if(!selectedPay){alert('Select payment method');return}if(!document.getElementById('agree').checked){alert('Agree to Terms');return}
   const upiId="kazuno@ptyes";
-  const note=`KAZUNO ${selectedName} UID:${uid} Zone:${zid}`;
-  currentLink=`upi://pay?pa=${upiId}&pn=KAZUNO%20OFFICIAL&am=${selectedPrice}&cu=INR&tn=${encodeURIComponent(note)}`;
+  const shortNote=`UID ${uid}`;
+  currentLink=`upi://pay?pa=${upiId}&pn=KAZUNO&am=${selectedPrice}&cu=INR&tn=${shortNote}`;
   let all=JSON.parse(localStorage.getItem('kazuno_orders')||'[]');all.push({id:'KZ'+Date.now().toString().slice(-6),uid:uid,zid:zid,item:selectedName,price:selectedPrice,pay:selectedPay,date:new Date().toLocaleString()});localStorage.setItem('kazuno_orders',JSON.stringify(all));
   document.getElementById('qrTitle').innerText=`Pay ₹${selectedPrice} via ${selectedPay}`;
   document.getElementById('qrSub').innerText=`${selectedName} | UID:${uid} (${zid})`;
   document.getElementById('qrAmt').innerText=`Amount: ₹${selectedPrice} - kazuno@ptyes`;
   document.getElementById('qrApp').innerText=selectedPay;
-  // GENERATE PROPER UPI QR - THIS FIXES "format not supported"
-  document.getElementById('qrImg').src=`https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${encodeURIComponent(currentLink)}`;
+  document.getElementById('qrDiv').innerHTML="";
+  new QRCode(document.getElementById('qrDiv'), {
+    text: currentLink,
+    width: 240,
+    height: 240,
+    colorDark : "#000000",
+    colorLight : "#ffffff",
+    correctLevel : QRCode.CorrectLevel.L
+  });
   document.getElementById('qrModal').classList.add('show');
 }
 function openApp(){
   if(!currentLink) return;
-  const uid=document.getElementById('uid').value.trim();const zid=document.getElementById('zid').value.trim();
-  const upiId="kazuno@ptyes";const noteEnc=encodeURIComponent(`KAZUNO ${selectedName} UID:${uid} Zone:${zid}`);
-  if(selectedPay==='Paytm'){window.location.href=`intent://pay?pa=${upiId}&pn=KAZUNO%20OFFICIAL&am=${selectedPrice}&cu=INR&tn=${noteEnc}#Intent;scheme=upi;package=net.one97.paytm;end`;}
-  else if(selectedPay==='GPay'){window.location.href=`intent://pay?pa=${upiId}&pn=KAZUNO%20OFFICIAL&am=${selectedPrice}&cu=INR&tn=${noteEnc}#Intent;scheme=upi;package=com.google.android.apps.nbu.paisa.user;end`;}
-  else if(selectedPay==='PhonePe'){window.location.href=`intent://pay?pa=${upiId}&pn=KAZUNO%20OFFICIAL&am=${selectedPrice}&cu=INR&tn=${noteEnc}#Intent;scheme=upi;package=com.phonepe.app;end`;}
+  const upiId="kazuno@ptyes";
+  const uid=document.getElementById('uid').value.trim();
+  if(selectedPay==='Paytm'){window.location.href=`intent://pay?pa=${upiId}&pn=KAZUNO&am=${selectedPrice}&cu=INR&tn=UID_${uid}#Intent;scheme=upi;package=net.one97.paytm;end`;}
+  else if(selectedPay==='GPay'){window.location.href=`intent://pay?pa=${upiId}&pn=KAZUNO&am=${selectedPrice}&cu=INR&tn=UID_${uid}#Intent;scheme=upi;package=com.google.android.apps.nbu.paisa.user;end`;}
+  else if(selectedPay==='PhonePe'){window.location.href=`intent://pay?pa=${upiId}&pn=KAZUNO&am=${selectedPrice}&cu=INR&tn=UID_${uid}#Intent;scheme=upi;package=com.phonepe.app;end`;}
   else{window.location.href=currentLink;}
-  setTimeout(()=>{window.location.href=currentLink;},1200);
+  setTimeout(()=>{window.location.href=currentLink;},1000);
 }
 function closeQR(){document.getElementById('qrModal').classList.remove('show');}
 </script>
 </body>
-  </html>
+</html>
