@@ -1,99 +1,83 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KAZUNO Admin</title>
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KAZUNO ADMIN</title>
 <style>
-body{background:#0f0f0f;color:white;font-family:Arial;padding:20px}
-.card{background:#1e1e1e;border:1px solid #ffcc00;border-radius:12px;padding:15px;margin-bottom:12px}
-.btn{padding:8px 14px;border-radius:8px;border:none;cursor:pointer;font-weight:bold;margin-right:6px}
-.btn-green{background:#00c853;color:white}
-.btn-red{background:#ff3d00;color:white}
-.btn-yellow{background:#ffcc00;color:black}
-input{padding:10px;border-radius:8px;border:none;width:100%;margin:10px 0}
-#loginBox{max-width:350px;margin:100px auto;text-align:center;background:#1e1e1e;padding:30px;border-radius:16px;border:1px solid #ffcc00}
-</style>
-</head>
-<body>
+*{box-sizing:border-box;font-family:Arial}body{margin:0;background:#080608;color:#fff;padding:15px}
+h2{color:#D4AF37;text-align:center}
+.card{background:#111;border:1px solid #D4AF37;border-radius:10px;padding:12px;margin:10px 0}
+.top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.btn{border:none;padding:8px 14px;border-radius:20px;font-weight:800;cursor:pointer}
+.btn-gold{background:linear-gradient(#ffcf66,#D4AF37);color:#000}
+.btn-red{background:#ff3333;color:#fff}
+.btn-green{background:#1ec96b;color:#000}
+.status{padding:3px 8px;border-radius:10px;font-size:11px;font-weight:700}
+.PENDING{background:orange;color:#000}.PAID{background:#1ec96b;color:#000}.DELIVERED{background:#D4AF37;color:#000}
+input{padding:10px;width:100%;border-radius:8px;border:1px solid #D4AF37;background:#000;color:#fff}
+#login{max-width:360px;margin:80px auto;background:#111;border:1px solid #D4AF37;border-radius:12px;padding:20px;text-align:center}
+</style></head><body>
 
-<div id="loginBox">
-<h2 style="color:#ffcc00">KAZUNO ADMIN</h2>
-<input type="password" id="pin" placeholder="Enter Admin PIN">
-<button class="btn btn-yellow" style="width:100%" onclick="login()">Login</button>
-<p style="font-size:12px;color:#aaa;margin-top:10px">Default PIN: 1234 — change in code later</p>
+<div id="login">
+<h2>KAZUNO ADMIN</h2><p style="color:#aaa;font-size:12px">Enter PIN to manage orders</p>
+<input id="pin" type="password" placeholder="PIN is 1234">
+<button class="btn btn-gold" style="width:100%;margin-top:12px" onclick="login()">LOGIN</button>
+<p id="err" style="color:red;font-size:12px;display:none">Wrong PIN</p>
 </div>
 
-<div id="adminBox" style="display:none">
-<h2 style="color:#ffcc00">Orders Control Panel</h2>
-<p>Total Orders: <span id="total">0</span> | Pending: <span id="pending">0</span></p>
-<button class="btn btn-red" onclick="clearAll()">Clear All Test Orders</button>
-<button class="btn btn-yellow" onclick="loadOrders()">Refresh</button>
-<div style="margin-top:20px" id="ordersList"></div>
+<div id="panel" style="display:none">
+<h2>KAZUNO ADMIN PANEL</h2>
+<div class="top">
+<div>Orders: <b id="count">0</b> | Revenue: <b id="rev">₹0</b></div>
+<div style="display:flex;gap:6px"><button class="btn btn-green" onclick="load()">Refresh</button>
+<button class="btn btn-red" onclick="clearAll()">Clear All Test</button>
+<button class="btn" style="background:#333;color:#fff" onclick="logout()">Logout</button></div>
+</div>
+<div id="list"></div>
 </div>
 
 <script>
-const ADMIN_PIN = "1234"; // CHANGE THIS TO YOUR OWN PIN
-const STORAGE_KEY = "kazuno_orders";
-
-function login(){
- if(document.getElementById('pin').value === ADMIN_PIN){
-  document.getElementById('loginBox').style.display='none';
-  document.getElementById('adminBox').style.display='block';
-  loadOrders();
- } else { alert("Wrong PIN"); }
-}
-
+const PIN="1234";
+const KEYS=["kazuno_orders","orders","mlbb_orders"];
 function getOrders(){
- try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"); } catch(e){ return []; }
+ let all=[]; KEYS.forEach(k=>{try{let d=JSON.parse(localStorage.getItem(k)||"[]"); if(Array.isArray(d)) all=all.concat(d)}catch(e){}});
+ // remove duplicates by id
+ let map={}; all.forEach(o=>{ if(o.id||o.orderId) map[o.id||o.orderId]=o });
+ return Object.values(map);
 }
-function saveOrders(orders){ localStorage.setItem(STORAGE_KEY, JSON.stringify(orders)); }
-
-function loadOrders(){
- let orders = getOrders().reverse(); // newest first
- document.getElementById('total').innerText = orders.length;
- document.getElementById('pending').innerText = orders.filter(o=>o.status==='PENDING').length;
- let html="";
- if(orders.length===0) html="<p>No orders</p>";
- orders.forEach((o, idx)=>{
-  let realIdx = getOrders().length - 1 - idx;
-  html+=`
-  <div class="card">
-   <div style="display:flex;justify-content:space-between">
-    <span style="color:#aaa">${o.date || ''}</span>
-    <span style="background:${o.status==='PENDING'?'#ffcc00':'#00c853'};color:${o.status==='PENDING'?'black':'white'};padding:3px 10px;border-radius:20px;font-size:12px;font-weight:bold">${o.status}</span>
-   </div>
-   <h3 style="margin:8px 0">${o.packageName || o.package || 'Package'}</h3>
-   <div style="font-size:14px;color:#ccc">UID: ${o.uid} (Zone:${o.zone}) | ${o.payMethod || 'Paytm'}<br>Order: <b style="color:white">${o.orderId || o.id}</b></div>
-   <div style="color:#4dabf5;font-weight:bold;font-size:18px;margin:6px 0">₹${o.price || o.amount}</div>
-   <div style="margin-top:10px">
-    <button class="btn btn-green" onclick="markDone(${realIdx})">✅ Mark Delivered</button>
-    <button class="btn btn-red" onclick="deleteOrder(${realIdx})">Delete</button>
-    <a class="btn btn-yellow" style="text-decoration:none" href="https://wa.me/?text=Order ${o.orderId} UID ${o.uid} delivered" target="_blank">WhatsApp</a>
-   </div>
-  </div>`;
+function login(){
+ if(document.getElementById('pin').value===PIN){
+  localStorage.setItem('kazuno_admin','1');
+  document.getElementById('login').style.display='none';
+  document.getElementById('panel').style.display='block'; load();
+ } else document.getElementById('err').style.display='block';
+}
+function logout(){localStorage.removeItem('kazuno_admin'); location.reload();}
+function load(){
+ let orders=getOrders();
+ document.getElementById('count').innerText=orders.length;
+ let rev=0; orders.forEach(o=>rev+=Number(o.amount||o.price||o.total||0));
+ document.getElementById('rev').innerText="₹"+rev;
+ let html=""; if(!orders.length) html='<p style="text-align:center;color:#aaa;margin-top:30px">No orders found on THIS device.<br><small>Note: Orders are saved in customer phone only, not in admin phone. To see ALL customers live, we need Firebase (next step).</small></p>';
+ orders.reverse().forEach(o=>{
+  html+=`<div class="card"><div class="top"><div><b>${o.id||o.orderId||'KZ'}</b> - ${o.game||o.product||'MLBB'} - ${o.pack||o.title||''}<br><small>${o.playerId||o.uid||''} | ${o.date||o.time||''}</small><br>₹${o.amount||o.price||o.total||0}</div>
+  <div style="text-align:right"><span class="status ${o.status||'PENDING'}">${o.status||'PENDING'}</span><br><br>
+  <button class="btn btn-gold" style="font-size:11px" onclick="mark('${o.id||o.orderId}','PAID')">Mark PAID</button>
+  <button class="btn btn-green" style="font-size:11px" onclick="mark('${o.id||o.orderId}','DELIVERED')">Delivered</button>
+  <button class="btn btn-red" style="font-size:11px" onclick="delOne('${o.id||o.orderId}')">X</button></div></div></div>`;
  });
- document.getElementById('ordersList').innerHTML = html;
+ document.getElementById('list').innerHTML=html;
 }
-
-function markDone(i){
- let orders = getOrders();
- orders[i].status = "COMPLETED";
- saveOrders(orders);
- loadOrders();
+function mark(id,status){
+ let orders=getOrders(); orders.forEach(o=>{if((o.id||o.orderId)==id) o.status=status});
+ saveAll(orders); load();
 }
-function deleteOrder(i){
- if(!confirm("Delete this order?")) return;
- let orders = getOrders();
- orders.splice(i,1);
- saveOrders(orders);
- loadOrders();
+function delOne(id){
+ let orders=getOrders().filter(o=>(o.id||o.orderId)!=id); saveAll(orders); load();
 }
-function clearAll(){
- if(!confirm("Delete ALL test orders? This will clear that screenshot list.")) return;
- localStorage.removeItem(STORAGE_KEY);
- loadOrders();
+function saveAll(orders){
+ // save to first key found
+ localStorage.setItem(KEYS[0], JSON.stringify(orders));
+ localStorage.setItem(KEYS[1], JSON.stringify(orders));
 }
-</script>
-</body>
-</html>
+function clearAll(){ if(confirm('Delete ALL test orders from THIS phone?')){ KEYS.forEach(k=>localStorage.removeItem(k)); load(); }}
+if(localStorage.getItem('kazuno_admin')=='1'){ document.getElementById('login').style.display='none'; document.getElementById('panel').style.display='block'; load();}
+</script></body></html>
