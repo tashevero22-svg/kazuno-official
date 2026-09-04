@@ -125,35 +125,4 @@ async function checkUser(){
   try{
     const api=`https://api.isan.eu.org/nickname/ml?id=${uid}&zone=${zid}`;
     const r=await fetch(api);
-    const j=await r.json();
-    if(j && j.name){
-      res.style.color='#4eff88';
-      res.innerText='✅ Username: '+j.name+' ('+uid+')';
-    }else{
-      res.style.color='#4eff88';
-      res.innerText='✅ Username Verified: '+uid+' ('+zid+')';
-    }
-  }catch(e){
-    res.style.color='#4eff88';
-    res.innerText='✅ Username Verified: '+uid+' ('+zid+') - Ready to Topup';
-  }
-}
-
-function payNow(){
-  const uid=document.getElementById('uid').value.trim();
-  const zid=document.getElementById('zid').value.trim();
-  if(!uid){alert('Enter User ID');return}
-  if(!zid){alert('Enter Zone ID');return}
-  if(!selectedPrice){alert('Select a package');return}
-  if(!selectedPay){alert('Select payment method');return}
-  if(!document.getElementById('agree').checked){alert('Agree to Terms');return}
-  
-  const upiId="6909735297@pthdfc";
-  const note=`KAZUNO ${selectedName} UID:${uid} Zone:${zid}`;
-  const upiLink=`upi://pay?pa=${upiId}&pn=KAZUNO OFFICIAL&am=${selectedPrice}&cu=INR&tn=${encodeURIComponent(note)}`;
-  
-  window.location.href=upiLink;
-}
-</script>
-</body>
-</html>
+    const j=await r
