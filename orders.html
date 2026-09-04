@@ -57,9 +57,7 @@ WhatsApp: +91 6909735297<br>Email: kazunovenuh@gmail.com<br><br>
 </div>
 
 <script>
-// Show orders saved from payNow
 let orders = JSON.parse(localStorage.getItem('kazuno_orders') || '[]');
-
 const list = document.getElementById('orderList');
 
 if(orders.length===0){
@@ -71,6 +69,17 @@ if(orders.length===0){
     <a class="btn" href="index.html">Go to Store</a>
   </div>`;
 }else{
-  list.innerHTML = orders.reverse().map(o=>`
+  list.innerHTML = orders.slice().reverse().map(o=>`
     <div class="order-card">
-      <div class="top"><span>${o.date}</span><span class="status pending">
+      <div class="top"><span>${o.date}</span><span class="status pending">● PENDING</span></div>
+      <div class="mid">${o.item} <span style="float:right;color:#aaa;font-size:11px">${o.id}</span></div>
+      <div style="font-size:12px;color:#ccc">UID: ${o.uid} ${o.zid ? '(Zone:'+o.zid+')' : ''} | ${o.pay}</div>
+      <div class="price" style="margin-top:6px">₹${o.price}</div>
+      <div style="font-size:10px;color:#aaa;margin-top:6px">Send payment screenshot on WhatsApp for verification</div>
+    </div>
+  `).join('');
+}
+</script>
+
+</body>
+</html>
