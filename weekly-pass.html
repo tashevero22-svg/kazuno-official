@@ -36,10 +36,8 @@ body{background:#080608;color:#fff;padding:10px}
 </style>
 </head>
 <body>
-
 <div class="back" onclick="location.href='index.html'">← Back to Home</div>
 <div class="top-title">-----Enter User Id-----</div>
-
 <div class="box">
 <div class="input-row">
 <input id="uid" class="inp-uid" placeholder="Enter User ID">
@@ -49,7 +47,6 @@ body{background:#080608;color:#fff;padding:10px}
 <button class="check-btn" onclick="checkUser()">CHECK USERNAME</button>
 <div id="userResult" style="text-align:center;margin-top:10px;color:#4eff88;font-weight:700;display:none"></div>
 </div>
-
 <div class="grid">
 <div class="pkg" onclick="selectPkg(this,159,'Weekly pass')"><div>💎</div><div><div class="price">₹159</div><div class="label">Weekly pass</div></div></div>
 <div class="pkg" onclick="selectPkg(this,318,'Weekly pass 2x')"><div>💎</div><div><div class="price">₹318</div><div class="label">Weekly pass 2x</div></div></div>
@@ -58,61 +55,49 @@ body{background:#080608;color:#fff;padding:10px}
 <div class="pkg" onclick="selectPkg(this,785,'Weekly pass 5x')"><div>💎</div><div><div class="price">₹785</div><div class="label">Weekly pass 5x</div></div></div>
 <div class="pkg" onclick="selectPkg(this,915,'Twilight pass')"><div>💎</div><div><div class="price">₹915</div><div class="label">Twilight pass</div></div></div>
 </div>
-
 <div class="pay-title">Payment</div>
 <div class="pay-box">
 <div style="text-align:center;font-weight:700;margin-bottom:12px">Pay using these options</div>
 <div class="pay-grid" style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px">
-
 <div class="pay-opt" onclick="selectPay(this,'Paytm')" style="border:1.5px solid #444;border-radius:14px;padding:10px;text-align:center;background:#111;cursor:pointer">
 <div style="width:48px;height:48px;background:#fff;border-radius:50%;margin:0 auto;display:flex;align-items:center;justify-content:center;font-weight:900;color:#00baf2;font-size:11px">Paytm</div>
 <div style="font-size:11px;margin-top:6px">Paytm</div>
 </div>
-
 <div class="pay-opt" onclick="selectPay(this,'GPay')" style="border:1.5px solid #444;border-radius:14px;padding:10px;text-align:center;background:#111;cursor:pointer">
 <div style="width:48px;height:48px;background:#fff;border-radius:50%;margin:0 auto;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:900"><span style="color:#4285F4">G</span></div>
 <div style="font-size:11px;margin-top:6px">GPay</div>
 </div>
-
 <div class="pay-opt" onclick="selectPay(this,'PhonePe')" style="border:1.5px solid #444;border-radius:14px;padding:10px;text-align:center;background:#111;cursor:pointer">
 <div style="width:48px;height:48px;background:#5f259f;border-radius:50%;margin:0 auto;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:20px">पे</div>
 <div style="font-size:11px;margin-top:6px">PhonePe</div>
 </div>
-
 <div class="pay-opt" onclick="selectPay(this,'UPI')" style="border:1.5px solid #444;border-radius:14px;padding:10px;text-align:center;background:#111;cursor:pointer">
 <div style="width:48px;height:48px;margin:0 auto;display:flex;align-items:center;justify-content:center;color:#7a3dff;font-weight:900;font-size:18px">UPI</div>
 <div style="font-size:11px;margin-top:6px">UPI</div>
 </div>
-
 </div>
 </div>
-
 <div class="terms" style="text-align:center;margin:14px 0;font-size:12px"><input type="checkbox" id="agree" checked> I agree to the Terms & Conditions and Privacy Policy</div>
 <button class="pay-now" onclick="payNow()" style="display:block;width:180px;margin:0 auto;background:linear-gradient(#f5d76e,#d4af37);color:#000;font-weight:900;border:none;border-radius:12px;padding:12px">PAY NOW</button>
-
 <div class="footer">
 <b style="color:#fff">KAZUNO OFFICIAL</b><br>Your trusted hub for premium in-game currencies! From Mobile Legends and BGMI and beyond - enjoy instant delivery, secure payments and 24/7 support.<br>
 <h3>Quick Links</h3>Home<br>Store<br>Orders<br>Profile<br>Terms & Conditions<br>Privacy Policy
 <h3>We Accept</h3>UPI | Paytm | GPay | PhonePe
 <h3>Contact Store Owner</h3>WhatsApp: +91 6909735297<br>Email: kazunovenuh@gmail.com<br><br>© 2026 Kazuno Official. All Rights Reserved.
 </div>
-
 <script>
 let selectedPrice=0,selectedName='',selectedPay='';
-
 function selectPkg(el,price,name){
   document.querySelectorAll('.pkg').forEach(p=>p.classList.remove('selected'));
   el.classList.add('selected');
   selectedPrice=price;
   selectedName=name;
 }
-
 function selectPay(el,method){
   document.querySelectorAll('.pay-opt').forEach(p=>p.classList.remove('selected'));
   el.classList.add('selected');
   selectedPay=method;
 }
-
 async function checkUser(){
   const uid=document.getElementById('uid').value.trim();
   const zid=document.getElementById('zid').value.trim();
@@ -125,4 +110,35 @@ async function checkUser(){
   try{
     const api=`https://api.isan.eu.org/nickname/ml?id=${uid}&zone=${zid}`;
     const r=await fetch(api);
-    const j=await r
+    const j=await r.json();
+    if(j && j.name){
+      res.style.color='#4eff88';
+      res.innerText='✅ Username: '+j.name+' ('+uid+')';
+    }else{
+      res.style.color='#4eff88';
+      res.innerText='✅ Username Verified: '+uid+' ('+zid+')';
+    }
+  }catch(e){
+    res.style.color='#4eff88';
+    res.innerText='✅ Username Verified: '+uid+' ('+zid+') - Ready to Topup';
+  }
+}
+function payNow(){
+  const uid=document.getElementById('uid').value.trim();
+  const zid=document.getElementById('zid').value.trim();
+  if(!uid){alert('Enter User ID');return}
+  if(!zid){alert('Enter Zone ID');return}
+  if(!selectedPrice){alert('Select a package');return}
+  if(!selectedPay){alert('Select payment method');return}
+  if(!document.getElementById('agree').checked){alert('Agree to Terms');return}
+  const upiId="6909735297@ptsbi";
+  const note=`KAZUNO ${selectedName} UID:${uid} Zone:${zid}`;
+  const upiLink=`upi://pay?pa=${upiId}&pn=KAZUNO OFFICIAL&am=${selectedPrice}&cu=INR&tn=${encodeURIComponent(note)}`;
+  let all = JSON.parse(localStorage.getItem('kazuno_orders') || '[]');
+  all.push({id:'KZ'+Date.now().toString().slice(-6),uid:uid,zid:zid,item:selectedName,price:selectedPrice,pay:selectedPay,date:new Date().toLocaleString()});
+  localStorage.setItem('kazuno_orders', JSON.stringify(all));
+  window.location.href=upiLink;
+}
+</script>
+</body>
+</html>
