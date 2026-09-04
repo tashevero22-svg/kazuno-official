@@ -7,32 +7,33 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
 body{background:#080608;color:#fff;padding:10px}
-.top-title{text-align:center;font-weight:900;font-size:20px;padding:10px 0;letter-spacing:1px}
+.top-title{text-align:center;font-weight:900;font-size:20px;padding:10px 0}
 .box{border:1.5px solid #d4af37;border-radius:18px;padding:14px;margin:10px 0;background:#0f0f0f}
 .input-row{display:flex;gap:10px}
-.inp-uid{flex:2;background:#0d0d0d;border:1.5px solid #d4af37;border-radius:10px;padding:14px;color:#d4af37;outline:none;font-size:14px}
-.inp-zone{flex:1;background:#0d0d0d;border:1.5px solid #d4af37;border-radius:10px;padding:14px;color:#d4af37;outline:none;font-size:14px;text-align:center;min-width:100px}
-.inp-uid::placeholder,.inp-zone::placeholder{color:#d4af37;opacity:.8}
-.hint{font-size:11px;color:#ccc;margin-top:10px;line-height:1.4}
+.inp-uid{flex:2;background:#0d0d0d;border:1.5px solid #d4af37;border-radius:10px;padding:14px;color:#d4af37;outline:none}
+.inp-zone{flex:1;background:#0d0d0d;border:1.5px solid #d4af37;border-radius:10px;padding:14px;color:#d4af37;text-align:center}
+.hint{font-size:11px;color:#ccc;margin-top:10px}
 .check-btn{width:100%;background:linear-gradient(180deg,#f5d76e,#d4af37);color:#000;font-weight:900;border:none;border-radius:12px;padding:14px;margin-top:14px;cursor:pointer}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
 .pkg{border:1.5px solid #8c7320;border-radius:18px;padding:16px 10px;display:flex;align-items:center;gap:8px;background:#111;cursor:pointer}
 .pkg.selected{border-color:#d4af37;background:#1f1c0a;box-shadow:0 0 12px #d4af3766}
-.pkg *{pointer-events:none}
-.pkg .price{color:#4ea6ff;font-weight:900;font-size:22px}
-.pkg .label{font-size:13px}
 .pay-title{font-size:26px;font-weight:900;color:#f5d76e;margin:18px 0 8px;border-bottom:2px solid #d4af37;width:130px;padding-bottom:4px}
 .pay-box{border:1.5px solid #8c7320;border-radius:18px;padding:14px}
 .pay-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;margin-top:10px}
 .pay-opt{border:1.5px solid #444;border-radius:14px;padding:10px;text-align:center;cursor:pointer;background:#111}
-.pay-opt *{pointer-events:none}
-.pay-opt.selected{border-color:#d4af37 !important;background:#221e0a !important;box-shadow:0 0 12px #d4af37aa}
-.pay-opt div{font-size:11px;margin-top:6px}
-.terms{margin:14px 0;text-align:center;font-size:12px}
+.pay-opt.selected{border-color:#d4af37!important;background:#221e0a!important;box-shadow:0 0 12px #d4af37aa}
 .pay-now{display:block;width:60%;margin:10px auto;background:linear-gradient(180deg,#f5d76e,#d4af37);color:#000;font-weight:900;font-size:18px;border:none;border-radius:12px;padding:12px;cursor:pointer}
-.footer{margin-top:30px;border-top:1px solid #222;padding:20px 10px;color:#aaa;font-size:13px;line-height:1.6}
-.footer h3{color:#fff;margin-top:12px}
+.terms{margin:14px 0;text-align:center;font-size:12px}
 .back{color:#d4af37;padding:10px;cursor:pointer}
+.footer{margin-top:30px;border-top:1px solid #222;padding:20px 10px;color:#aaa;font-size:13px}
+.footer h3{color:#fff;margin-top:12px}
+#qrModal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.92);z-index:9999;align-items:center;justify-content:center}
+#qrModal.show{display:flex}
+.qr-card{background:#111;border:2px solid #d4af37;border-radius:20px;padding:20px;width:92%;max-width:360px;text-align:center}
+.qr-card img{width:260px;height:260px;background:#fff;padding:10px;border-radius:14px;margin:12px 0}
+.qr-btn{width:100%;padding:12px;border:none;border-radius:10px;font-weight:900;margin-top:8px;cursor:pointer}
+.qr-pay{background:linear-gradient(180deg,#f5d76e,#d4af37);color:#000}
+.qr-close{background:#222;color:#fff;border:1px solid #444}
 </style>
 </head>
 <body>
@@ -43,101 +44,69 @@ body{background:#080608;color:#fff;padding:10px}
 <input id="uid" class="inp-uid" placeholder="Enter User ID">
 <input id="zid" class="inp-zone" placeholder="( Zone ID )">
 </div>
-<div class="hint">To find your User ID, click on your avatar in the top left corner of the main game screen. Then go to the "Basic Info" tab. Your User ID is shown below your nickname. Please input the complete user ID here, e.g. 12345678(1234).</div>
+<div class="hint">To find your User ID, click on your avatar in the top left corner of the main game screen. Then go to the "Basic Info" tab.</div>
 <button class="check-btn" onclick="checkUser()">CHECK USERNAME</button>
 <div id="userResult" style="text-align:center;margin-top:10px;color:#4eff88;font-weight:700;display:none"></div>
 </div>
 <div class="grid">
-<div class="pkg" onclick="selectPkg(this,159,'Weekly pass')"><div>💎</div><div><div class="price">₹159</div><div class="label">Weekly pass</div></div></div>
-<div class="pkg" onclick="selectPkg(this,318,'Weekly pass 2x')"><div>💎</div><div><div class="price">₹318</div><div class="label">Weekly pass 2x</div></div></div>
-<div class="pkg" onclick="selectPkg(this,470,'Weekly pass 3x')"><div>💎</div><div><div class="price">₹470</div><div class="label">Weekly pass 3x</div></div></div>
-<div class="pkg" onclick="selectPkg(this,625,'Weekly pass 4x')"><div>💎</div><div><div class="price">₹625</div><div class="label">Weekly pass 4x</div></div></div>
-<div class="pkg" onclick="selectPkg(this,785,'Weekly pass 5x')"><div>💎</div><div><div class="price">₹785</div><div class="label">Weekly pass 5x</div></div></div>
-<div class="pkg" onclick="selectPkg(this,915,'Twilight pass')"><div>💎</div><div><div class="price">₹915</div><div class="label">Twilight pass</div></div></div>
+<div class="pkg" onclick="selectPkg(this,159,'Weekly pass')"><div>💎</div><div><div style="color:#4ea6ff;font-weight:900;font-size:22px">₹159</div><div style="font-size:13px">Weekly pass</div></div></div>
+<div class="pkg" onclick="selectPkg(this,318,'Weekly pass 2x')"><div>💎</div><div><div style="color:#4ea6ff;font-weight:900;font-size:22px">₹318</div><div style="font-size:13px">Weekly pass 2x</div></div></div>
+<div class="pkg" onclick="selectPkg(this,470,'Weekly pass 3x')"><div>💎</div><div><div style="color:#4ea6ff;font-weight:900;font-size:22px">₹470</div><div style="font-size:13px">Weekly pass 3x</div></div></div>
+<div class="pkg" onclick="selectPkg(this,625,'Weekly pass 4x')"><div>💎</div><div><div style="color:#4ea6ff;font-weight:900;font-size:22px">₹625</div><div style="font-size:13px">Weekly pass 4x</div></div></div>
+<div class="pkg" onclick="selectPkg(this,785,'Weekly pass 5x')"><div>💎</div><div><div style="color:#4ea6ff;font-weight:900;font-size:22px">₹785</div><div style="font-size:13px">Weekly pass 5x</div></div></div>
+<div class="pkg" onclick="selectPkg(this,915,'Twilight pass')"><div>💎</div><div><div style="color:#4ea6ff;font-weight:900;font-size:22px">₹915</div><div style="font-size:13px">Twilight pass</div></div></div>
 </div>
 <div class="pay-title">Payment</div>
 <div class="pay-box">
 <div style="text-align:center;font-weight:700;margin-bottom:12px">Pay using these options</div>
-<div class="pay-grid" style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px">
-<div class="pay-opt" onclick="selectPay(this,'Paytm')"><div style="width:48px;height:48px;background:#fff;border-radius:50%;margin:0 auto;display:flex;align-items:center;justify-content:center;font-weight:900;color:#00baf2;font-size:11px">Paytm</div><div style="font-size:11px;margin-top:6px">Paytm</div></div>
-<div class="pay-opt" onclick="selectPay(this,'GPay')"><div style="width:48px;height:48px;background:#fff;border-radius:50%;margin:0 auto;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:900"><span style="color:#4285F4">G</span></div><div style="font-size:11px;margin-top:6px">GPay</div></div>
-<div class="pay-opt" onclick="selectPay(this,'PhonePe')"><div style="width:48px;height:48px;background:#5f259f;border-radius:50%;margin:0 auto;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:20px">पे</div><div style="font-size:11px;margin-top:6px">PhonePe</div></div>
-<div class="pay-opt" onclick="selectPay(this,'UPI')"><div style="width:48px;height:48px;margin:0 auto;display:flex;align-items:center;justify-content:center;color:#7a3dff;font-weight:900;font-size:18px">UPI</div><div style="font-size:11px;margin-top:6px">UPI</div></div>
+<div class="pay-grid">
+<div class="pay-opt" onclick="selectPay(this,'Paytm')"><div style="width:48px;height:48px;background:#fff;border-radius:50%;margin:0 auto;display:flex;align-items:center;justify-content:center;font-weight:900;color:#00baf2">Paytm</div><div style="font-size:11px;margin-top:6px">Paytm</div></div>
+<div class="pay-opt" onclick="selectPay(this,'GPay')"><div style="width:48px;height:48px;background:#fff;border-radius:50%;margin:0 auto;display:flex;align-items:center;justify-content:center;font-weight:900;color:#4285F4;font-size:24px">G</div><div style="font-size:11px;margin-top:6px">GPay</div></div>
+<div class="pay-opt" onclick="selectPay(this,'PhonePe')"><div style="width:48px;height:48px;background:#5f259f;border-radius:50%;margin:0 auto;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900">पे</div><div style="font-size:11px;margin-top:6px">PhonePe</div></div>
+<div class="pay-opt" onclick="selectPay(this,'UPI')"><div style="width:48px;height:48px;margin:0 auto;display:flex;align-items:center;justify-content:center;color:#7a3dff;font-weight:900">UPI</div><div style="font-size:11px;margin-top:6px">UPI</div></div>
 </div>
 </div>
-<div class="terms" style="text-align:center;margin:14px 0;font-size:12px"><input type="checkbox" id="agree" checked> I agree to the Terms & Conditions and Privacy Policy</div>
+<div class="terms"><input type="checkbox" id="agree" checked> I agree to the Terms & Conditions and Privacy Policy</div>
 <button class="pay-now" onclick="payNow()">PAY NOW</button>
-<div class="footer">
-<b style="color:#fff">KAZUNO OFFICIAL</b><br>Your trusted hub for premium in-game currencies! From Mobile Legends and BGMI and beyond - enjoy instant delivery, secure payments and 24/7 support.<br>
-<h3>Quick Links</h3>Home<br>Store<br>Orders<br>Profile<br>Terms & Conditions<br>Privacy Policy
-<h3>We Accept</h3>UPI | Paytm | GPay | PhonePe
-<h3>Contact Store Owner</h3>WhatsApp: +91 6909735297<br>Email: kazunovenuh@gmail.com<br><br>© 2026 Kazuno Official. All Rights Reserved.
+
+<div id="qrModal" onclick="if(event.target.id==='qrModal')closeQR()">
+<div class="qr-card">
+<div style="font-weight:900;color:#d4af37;font-size:18px" id="qrTitle">Scan to Pay</div>
+<div style="font-size:12px;color:#aaa" id="qrSub">kazuno@ptyes</div>
+<img id="qrImg" src="qr.png" alt="QR">
+<div style="font-size:14px;font-weight:700" id="qrAmt">₹159</div>
+<button class="qr-btn qr-pay" onclick="openUPIApp()">OPEN <span id="qrApp">UPI</span> APP</button>
+<button class="qr-btn qr-close" onclick="closeQR()">CLOSE</button>
 </div>
+</div>
+
+<div class="footer"><b style="color:#fff">KAZUNO OFFICIAL</b><br>WhatsApp: +91 6909735297<br>© 2026 Kazuno Official</div>
+
 <script>
-let selectedPrice=0,selectedName='',selectedPay='';
-function selectPkg(el,price,name){
-  document.querySelectorAll('.pkg').forEach(p=>p.classList.remove('selected'));
-  el.classList.add('selected');
-  selectedPrice=price;
-  selectedName=name;
-}
-function selectPay(el,method){
-  document.querySelectorAll('.pay-opt').forEach(p=>p.classList.remove('selected'));
-  el.classList.add('selected');
-  selectedPay=method;
-}
-async function checkUser(){
-  const uid=document.getElementById('uid').value.trim();
-  const zid=document.getElementById('zid').value.trim();
-  const res=document.getElementById('userResult');
-  if(!uid){alert('Enter User ID');return}
-  if(!zid){alert('Enter Zone ID');return}
-  res.style.display='block';
-  res.style.color='#ffcc00';
-  res.innerText='⏳ Checking ID '+uid+' ('+zid+')...';
-  try{
-    const api=`https://api.isan.eu.org/nickname/ml?id=${uid}&zone=${zid}`;
-    const r=await fetch(api);
-    const j=await r.json();
-    if(j && j.name){
-      res.style.color='#4eff88';
-      res.innerText='✅ Username: '+j.name+' ('+uid+')';
-    }else{
-      res.style.color='#4eff88';
-      res.innerText='✅ Username Verified: '+uid+' ('+zid+')';
-    }
-  }catch(e){
-    res.style.color='#4eff88';
-    res.innerText='✅ Username Verified: '+uid+' ('+zid+') - Ready to Topup';
-  }
-}
+let selectedPrice=0,selectedName='',selectedPay='',currentUpiLink='';
+function selectPkg(el,price,name){document.querySelectorAll('.pkg').forEach(p=>p.classList.remove('selected'));el.classList.add('selected');selectedPrice=price;selectedName=name;}
+function selectPay(el,method){document.querySelectorAll('.pay-opt').forEach(p=>p.classList.remove('selected'));el.classList.add('selected');selectedPay=method;}
+async function checkUser(){const uid=document.getElementById('uid').value.trim();const zid=document.getElementById('zid').value.trim();const res=document.getElementById('userResult');if(!uid){alert('Enter User ID');return}if(!zid){alert('Enter Zone ID');return}res.style.display='block';res.style.color='#ffcc00';res.innerText='⏳ Checking...';try{const r=await fetch(`https://api.isan.eu.org/nickname/ml?id=${uid}&zone=${zid}`);const j=await r.json();res.style.color='#4eff88';res.innerText=j.name?`✅ ${j.name}`:`✅ Verified ${uid}`;}catch(e){res.style.color='#4eff88';res.innerText=`✅ Verified ${uid} (${zid})`;}}
 function payNow(){
-  const uid=document.getElementById('uid').value.trim();
-  const zid=document.getElementById('zid').value.trim();
-  if(!uid){alert('Enter User ID');return}
-  if(!zid){alert('Enter Zone ID');return}
-  if(!selectedPrice){alert('Select a package');return}
-  if(!selectedPay){alert('Select payment method');return}
-  if(!document.getElementById('agree').checked){alert('Agree to Terms');return}
-  const upiId="kazuno@ptyes";
-  const note=`KAZUNO ${selectedName} UID:${uid} Zone:${zid}`;
-  const upiLink=`upi://pay?pa=${upiId}&pn=KAZUNO OFFICIAL&am=${selectedPrice}&cu=INR&tn=${encodeURIComponent(note)}`;
-  let all = JSON.parse(localStorage.getItem('kazuno_orders') || '[]');
-  all.push({id:'KZ'+Date.now().toString().slice(-6),uid:uid,zid:zid,item:selectedName,price:selectedPrice,pay:selectedPay,date:new Date().toLocaleString()});
-  localStorage.setItem('kazuno_orders', JSON.stringify(all));
-  if(selectedPay==='Paytm'){
-    window.location.href=`intent://pay?pa=${upiId}&pn=KAZUNO%20OFFICIAL&am=${selectedPrice}&cu=INR&tn=${encodeURIComponent(note)}#Intent;scheme=upi;package=net.one97.paytm;end`;
-    setTimeout(()=>{ window.location.href=upiLink; },1200);
-  }else if(selectedPay==='GPay'){
-    window.location.href=`intent://pay?pa=${upiId}&pn=KAZUNO%20OFFICIAL&am=${selectedPrice}&cu=INR&tn=${encodeURIComponent(note)}#Intent;scheme=upi;package=com.google.android.apps.nbu.paisa.user;end`;
-    setTimeout(()=>{ window.location.href=upiLink; },1200);
-  }else if(selectedPay==='PhonePe'){
-    window.location.href=`intent://pay?pa=${upiId}&pn=KAZUNO%20OFFICIAL&am=${selectedPrice}&cu=INR&tn=${encodeURIComponent(note)}#Intent;scheme=upi;package=com.phonepe.app;end`;
-    setTimeout(()=>{ window.location.href=upiLink; },1200);
-  }else{
-    window.location.href=upiLink;
-  }
+  const uid=document.getElementById('uid').value.trim();const zid=document.getElementById('zid').value.trim();
+  if(!uid){alert('Enter User ID');return}if(!zid){alert('Enter Zone ID');return}if(!selectedPrice){alert('Select a package');return}if(!selectedPay){alert('Select payment method');return}if(!document.getElementById('agree').checked){alert('Agree to Terms');return}
+  const upiId="kazuno@ptyes";const note=`KAZUNO ${selectedName} UID:${uid} Zone:${zid}`;
+  currentUpiLink=`upi://pay?pa=${upiId}&pn=KAZUNO%20OFFICIAL&am=${selectedPrice}&cu=INR&tn=${encodeURIComponent(note)}`;
+  let all=JSON.parse(localStorage.getItem('kazuno_orders')||'[]');all.push({id:'KZ'+Date.now().toString().slice(-6),uid:uid,zid:zid,item:selectedName,price:selectedPrice,pay:selectedPay,date:new Date().toLocaleString()});localStorage.setItem('kazuno_orders',JSON.stringify(all));
+  document.getElementById('qrTitle').innerText=`Pay ₹${selectedPrice} via ${selectedPay}`;
+  document.getElementById('qrAmt').innerText=`Amount: ₹${selectedPrice} - ${selectedName}`;
+  document.getElementById('qrApp').innerText=selectedPay;
+  document.getElementById('qrModal').classList.add('show');
 }
+function openUPIApp(){
+  if(!currentUpiLink) return;const upiId="kazuno@ptyes";const price=selectedPrice;const tn=currentUpiLink.split('tn=')[1];
+  if(selectedPay==='Paytm'){window.location.href=`intent://pay?pa=${upiId}&pn=KAZUNO%20OFFICIAL&am=${price}&cu=INR&tn=${tn}#Intent;scheme=upi;package=net.one97.paytm;end`;}
+  else if(selectedPay==='GPay'){window.location.href=`intent://pay?pa=${upiId}&pn=KAZUNO%20OFFICIAL&am=${price}&cu=INR&tn=${tn}#Intent;scheme=upi;package=com.google.android.apps.nbu.paisa.user;end`;}
+  else if(selectedPay==='PhonePe'){window.location.href=`intent://pay?pa=${upiId}&pn=KAZUNO%20OFFICIAL&am=${price}&cu=INR&tn=${tn}#Intent;scheme=upi;package=com.phonepe.app;end`;}
+  else{window.location.href=currentUpiLink;}
+  setTimeout(()=>{window.location.href=currentUpiLink;},1200);
+}
+function closeQR(){document.getElementById('qrModal').classList.remove('show');}
 </script>
 </body>
-</html>
+  </html>
