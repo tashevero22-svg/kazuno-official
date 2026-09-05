@@ -133,8 +133,7 @@ let currentOrderId='';
 const upiId="kazuno@ptyes";
 const whatsappNumber="916909735297";
 
-// SECURE HELPERS
-function safeText(s){ return String(s).replace(/[<>\"'&]/g, c=>({'<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;','&':'&amp;'}[c])); }
+function safeText(s){ return String(s).replace(/[<>"'&]/g, c=>({'<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;','&':'&amp;'}[c])); }
 function isValidUID(v){ return /^[0-9]{5,12}$/.test(v); }
 function isValidZone(v){ return /^[0-9]{3,6}$/.test(v); }
 function isValidUTR(v){ return /^[A-Za-z0-9]{6,30}$/.test(v); }
@@ -202,10 +201,34 @@ qrBox.innerHTML='';
 new QRCode(qrBox,{text:currentLink,width:240,height:240,colorDark:"#000000",colorLight:"#ffffff",correctLevel:QRCode.CorrectLevel.M});
 document.getElementById('qrModal').classList.add('show');
 }
+
+// --- ONLY THIS FUNCTION WAS REPLACED AS PROMISED ---
 function openApp(){
 if(!currentLink){ alert('Payment link not ready'); return; }
-window.location.href=currentLink;
+let upiParams = currentLink.split('?')[1] || '';
+let appLink = currentLink;
+if(selectedPay === 'Paytm'){
+  appLink = 'intent://pay?' + upiParams + '#Intent;package=net.one97.paytm;action=android.intent.action.VIEW;end';
+}else if(selectedPay === 'GPay'){
+  appLink = 'intent://pay?' + upiParams + '#Intent;package=com.google.android.apps.nbu.paisa.user;action=android.intent.action.VIEW;end';
+}else if(selectedPay === 'PhonePe'){
+  appLink = 'intent://pay?' + upiParams + '#Intent;package=com.phonepe.app;action=android.intent.action.VIEW;end';
+}else{
+  appLink = currentLink;
 }
+try{
+  window.location.href = appLink;
+  setTimeout(function(){
+    if(document.visibilityState!== 'hidden'){
+      window.location.href = currentLink;
+    }
+  }, 1500);
+}catch(e){
+  window.location.href = currentLink;
+}
+}
+// --- END FIX ---
+
 function copyUPI(){
 if(navigator.clipboard){
 navigator.clipboard.writeText(upiId).then(function(){ alert('UPI ID copied: '+upiId); }).catch(function(){ prompt('Copy this UPI ID:',upiId); });
@@ -227,15 +250,12 @@ const uid=document.getElementById('uid').value.trim();
 const zid=document.getElementById('zid').value.trim();
 if(!utr){ alert('Enter UTR / Transaction ID'); return; }
 if(!isValidUTR(utr)){ alert('Invalid UTR - only letters & numbers, 6-30 chars'); return; }
-
-// DUPLICATE UTR BLOCK - SAME UTR CANNOT BE USED TWICE
 let all=JSON.parse(localStorage.getItem('kazuno_orders')||'[]');
 let dup=all.find(function(o){ return o.utr && o.utr.toLowerCase()===utr.toLowerCase(); });
 if(dup){
  alert('❌ This UTR already used for Order '+dup.id+'\nSame UTR cannot be used twice. If you paid again, you will get new UTR in your payment app.');
  return;
 }
-
 let order=all.find(function(o){ return o.id===currentOrderId; });
 if(order){
 order.utr=safeText(utr);
@@ -243,7 +263,6 @@ order.status='PAYMENT_TO_BE_VERIFIED';
 order.submittedAt=new Date().toLocaleString();
 }
 localStorage.setItem('kazuno_orders',JSON.stringify(all));
-
 const message=`🛒 KAZUNO OFFICIAL - NEW ORDER
 
 Order ID: ${currentOrderId}
@@ -257,7 +276,6 @@ UPI ID: ${upiId}
 Status: PAYMENT TO BE VERIFIED
 
 Please verify the payment in the UPI/bank account before processing the order. Screenshot will be sent next.`;
-
 const whatsappURL='https://wa.me/'+whatsappNumber+'?text='+encodeURIComponent(message);
 closePaid();
 window.open(whatsappURL, '_blank');
@@ -267,4 +285,4 @@ function closeQR(){ document.getElementById('qrModal').classList.remove('show');
 function closePaid(){ document.getElementById('paidModal').classList.remove('show'); }
 </script>
 </body>
-  </html>
+ </html>
