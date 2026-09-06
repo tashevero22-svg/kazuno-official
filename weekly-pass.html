@@ -48,10 +48,8 @@ body{background:#080608;color:#fff;padding:10px}
 </style>
 </head>
 <body>
-
 <div class="back" onclick="location.href='index.html'">← Back to Home</div>
 <div class="top-title">-----Enter User Id-----</div>
-
 <div class="box">
 <div class="input-row">
 <input id="uid" class="inp-uid" placeholder="Enter User ID">
@@ -61,7 +59,6 @@ body{background:#080608;color:#fff;padding:10px}
 <button class="check-btn" onclick="checkUser()">CHECK USERNAME</button>
 <div id="userResult" style="text-align:center;margin-top:10px;color:#4eff88;font-weight:700;display:none"></div>
 </div>
-
 <div class="grid">
 <div class="pkg" onclick="selectPkg(this,159,'Weekly pass')"><div>💎</div><div><div class="price">₹159</div><div class="label">Weekly pass</div></div></div>
 <div class="pkg" onclick="selectPkg(this,318,'Weekly pass 2x')"><div>💎</div><div><div class="price">₹318</div><div class="label">Weekly pass 2x</div></div></div>
@@ -70,7 +67,6 @@ body{background:#080608;color:#fff;padding:10px}
 <div class="pkg" onclick="selectPkg(this,785,'Weekly pass 5x')"><div>💎</div><div><div class="price">₹785</div><div class="label">Weekly pass 5x</div></div></div>
 <div class="pkg" onclick="selectPkg(this,915,'Twilight pass')"><div>💎</div><div><div class="price">₹915</div><div class="label">Twilight pass</div></div></div>
 </div>
-
 <div class="pay-title">Payment</div>
 <div class="pay-box">
 <div style="text-align:center;font-weight:700;margin-bottom:12px">Pay using these options</div>
@@ -81,24 +77,28 @@ body{background:#080608;color:#fff;padding:10px}
 <div class="pay-opt" onclick="selectPay(this,'UPI')"><div style="width:48px;height:48px;margin:0 auto;display:flex;align-items:center;justify-content:center;color:#7a3dff;font-weight:900;font-size:18px">UPI</div><div>UPI</div></div>
 </div>
 </div>
-
 <div class="terms"><input type="checkbox" id="agree" checked> I agree to the Terms & Conditions and Privacy Policy</div>
 <button class="pay-now" onclick="payNow()">PAY NOW</button>
-
 <div id="qrModal" onclick="if(event.target.id==='qrModal')closeQR()">
 <div class="qrCard">
 <div id="qrTitle" style="color:#d4af37;font-weight:900;font-size:18px">Pay ₹159 via Paytm</div>
 <div id="qrSub" style="font-size:12px;color:#aaa;margin-top:4px">kazuno@ptyes</div>
 <div id="qrDiv"></div>
 <div id="qrAmt" style="font-size:14px;font-weight:700">Amount: ₹159</div>
-<div id="qrNote" class="scan-note">⚠️ Please scan this QR with <b id="qrNoteApp">Paytm</b> app which you selected. Don't use other UPI app to avoid payment failure.</div>
+<div id="qrNote" class="scan-note" style="text-align:left;padding:12px;line-height:1.8">
+<b style="color:#d4af37;display:block;text-align:center;margin-bottom:6px">📋 HOW TO PAY</b>
+1 • Screenshot the QR / Copy UPI ID<br>
+2 • Open the <b id="qrNoteApp">App</b><br>
+3 • Scan QR or Paste UPI ID and Pay<br>
+4 • Copy UTR / Transaction ID<br>
+5 • Go back to web and I HAVE PAID and Paste it
+</div>
 <button class="qrBtn" style="background:linear-gradient(180deg,#f5d76e,#d4af37);color:#000" onclick="openApp()">OPEN <span id="qrApp">Paytm</span> APP</button>
 <button class="qrBtn" style="background:#222;color:#fff;border:1px solid #444" onclick="copyUPI()">COPY UPI ID</button>
 <button class="qrBtn" style="background:#222;color:#fff;border:1px solid #444" onclick="showPaidForm()">I HAVE PAID</button>
 <button class="qrBtn" style="background:#222;color:#fff;border:1px solid #444" onclick="closeQR()">CLOSE</button>
 </div>
 </div>
-
 <div id="paidModal" onclick="if(event.target.id==='paidModal')closePaid()">
 <div class="paidCard">
 <div style="color:#d4af37;font-weight:900;font-size:20px">Payment Confirmation</div>
@@ -116,14 +116,12 @@ body{background:#080608;color:#fff;padding:10px}
 <button class="qrBtn" style="background:#222;color:#fff;border:1px solid #444" onclick="closePaid()">CANCEL</button>
 </div>
 </div>
-
 <div class="footer">
 <b style="color:#fff">KAZUNO OFFICIAL</b><br>Your trusted hub for premium in-game currencies!
 <h3>Quick Links</h3>Home<br>Store<br>Orders<br>Profile<br>Terms & Conditions<br>Privacy Policy
 <h3>We Accept</h3>UPI | Paytm | GPay | PhonePe
 <h3>Contact Store Owner</h3>WhatsApp: +91 6909735297<br>Email: kazunovenuh@gmail.com<br><br>© 2026 Kazuno Official. All Rights Reserved.
 </div>
-
 <script>
 let selectedPrice=0;
 let selectedName='';
@@ -200,24 +198,15 @@ new QRCode(qrBox,{text:currentLink,width:240,height:240,colorDark:"#000000",colo
 document.getElementById('qrModal').classList.add('show');
 }
 function openApp(){
-if(!currentLink){ alert('Payment link not ready'); return; }
-let upiParams = currentLink.split('?')[1] || '';
-let appLink = currentLink;
 if(selectedPay === 'Paytm'){
-  appLink = 'paytmmp://pay?' + upiParams;
+  window.location.href = 'paytmmp://';
 }else if(selectedPay === 'GPay'){
-  appLink = 'tez://upi/pay?' + upiParams;
+  window.location.href = 'tez://';
 }else if(selectedPay === 'PhonePe'){
-  appLink = 'phonepe://pay?' + upiParams;
+  window.location.href = 'phonepe://';
 }else{
-  appLink = currentLink;
+  window.location.href = 'upi://pay';
 }
-window.location.href = appLink;
-setTimeout(function(){
-  if(document.visibilityState!== 'hidden'){
-    window.location.href = currentLink;
-  }
-}, 1000);
 }
 function copyUPI(){
 if(navigator.clipboard){
