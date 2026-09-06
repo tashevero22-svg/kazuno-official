@@ -120,15 +120,20 @@ body{background:#080608;color:#fff;padding:10px}
 <b style="color:#fff">KAZUNO OFFICIAL</b><br>Your trusted hub for premium in-game currencies!
 <h3>Quick Links</h3>Home<br>Store<br>Orders<br>Profile<br>Terms & Conditions<br>Privacy Policy
 <h3>We Accept</h3>UPI | Paytm | GPay | PhonePe
-<h3>Contact Store Owner</h3>WhatsApp: +91 6909735297<br>Email: kazunovenuh@gmail.com<br><br>© 2026 Kazuno Official. All Rights Reserved.
+<h3>Contact Store Owner</h3>WhatsApp: +91 6909735297<br>Email: kazunovenuh@gmail.com<br><br>
+<div style="text-align:center;">
+<div style="color:#888;font-size:13px;">© 2026 Kazuno Official. All Rights Reserved.</div>
+<div style="font-size:10.5px;color:#666;margin-top:6px;letter-spacing:0.4px;">Coded by <span style="color:#999;font-weight:600;">Tashe Vero</span> : <a href="https://wa.me/916909735297" style="color:#777;text-decoration:underline;">Contact Developer</a></div>
+</div>
 </div>
 <script>
 let selectedPrice=0;
 let selectedName='';
 let selectedPay='';
 let currentLink='';
+let currentUpiParam='';
 let currentOrderId='';
-const upiId="kazuno@ptyes";
+const upiId="6909735297@paytm";
 const whatsappNumber="916909735297";
 function safeText(s){ return String(s).replace(/[<>"'&]/g, c=>({'<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;','&':'&amp;'}[c])); }
 function isValidUID(v){ return /^[0-9]{5,12}$/.test(v); }
@@ -183,7 +188,8 @@ if(!selectedPrice){ alert('Select a package'); return; }
 if(!selectedPay){ alert('Select payment method'); return; }
 if(!document.getElementById('agree').checked){ alert('Agree to Terms'); return; }
 currentOrderId='KZ'+Date.now().toString().slice(-8);
-currentLink='upi://pay'+'?pa='+encodeURIComponent(upiId)+'&pn='+encodeURIComponent('KAZUNO OFFICIAL')+'&am='+Number(selectedPrice).toFixed(2)+'&cu=INR';
+currentUpiParam='pa='+encodeURIComponent(upiId)+'&pn='+encodeURIComponent('KAZUNO OFFICIAL')+'&am='+Number(selectedPrice).toFixed(2)+'&cu=INR&tn='+encodeURIComponent(currentOrderId+' '+selectedName);
+currentLink='upi://pay?'+currentUpiParam;
 let all=JSON.parse(localStorage.getItem('kazuno_orders')||'[]');
 all.push({id:currentOrderId,uid:uid,zid:zid,item:selectedName,price:selectedPrice,pay:selectedPay,upi:upiId,status:'PAYMENT_PENDING',date:new Date().toLocaleString()});
 localStorage.setItem('kazuno_orders',JSON.stringify(all));
@@ -198,14 +204,18 @@ new QRCode(qrBox,{text:currentLink,width:240,height:240,colorDark:"#000000",colo
 document.getElementById('qrModal').classList.add('show');
 }
 function openApp(){
+if(!currentUpiParam){ alert('Generate QR first'); return; }
 if(selectedPay === 'Paytm'){
-  window.location.href = 'paytmmp://';
+  window.location.href = 'paytmmp://pay?'+currentUpiParam;
+  setTimeout(function(){ window.location.href = currentLink; }, 1200);
 }else if(selectedPay === 'GPay'){
-  window.location.href = 'tez://';
+  window.location.href = 'tez://upi/pay?'+currentUpiParam;
+  setTimeout(function(){ window.location.href = currentLink; }, 1200);
 }else if(selectedPay === 'PhonePe'){
-  window.location.href = 'phonepe://';
+  window.location.href = 'phonepe://pay?'+currentUpiParam;
+  setTimeout(function(){ window.location.href = currentLink; }, 1200);
 }else{
-  window.location.href = 'upi://pay';
+  window.location.href = currentLink;
 }
 }
 function copyUPI(){
@@ -264,4 +274,4 @@ function closeQR(){ document.getElementById('qrModal').classList.remove('show');
 function closePaid(){ document.getElementById('paidModal').classList.remove('show'); }
 </script>
 </body>
-</html>
+  </html>
