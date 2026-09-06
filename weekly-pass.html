@@ -94,7 +94,7 @@ body{background:#080608;color:#fff;padding:10px}
 5 • Go back to web and I HAVE PAID and Paste it
 </div>
 <button class="qrBtn" style="background:linear-gradient(180deg,#f5d76e,#d4af37);color:#000" onclick="openApp()">OPEN <span id="qrApp">Paytm</span> APP</button>
-<button class="qrBtn" style="background:#222;color:#fff;border:1px solid #444" onclick="copyUPI()">COPY UPI ID</button>
+<button class="qrBtn" style="background:#0f2a14;color:#4eff88;border:1.5px solid #4eff88;position:relative" onclick="copyUPI()">📋 COPY UPI ID - RECOMMENDED <span style="position:absolute;top:-8px;right:-6px;background:#4eff88;color:#000;font-size:9px;padding:2px 6px;border-radius:10px;font-weight:900">BEST</span></button>
 <button class="qrBtn" style="background:#222;color:#fff;border:1px solid #444" onclick="showPaidForm()">I HAVE PAID</button>
 <button class="qrBtn" style="background:#222;color:#fff;border:1px solid #444" onclick="closeQR()">CLOSE</button>
 </div>
@@ -133,7 +133,7 @@ let selectedPay='';
 let currentLink='';
 let currentUpiParam='';
 let currentOrderId='';
-const upiId="6909735297@paytm";
+const upiId="6909735297@ptsbi";
 const whatsappNumber="916909735297";
 function safeText(s){ return String(s).replace(/[<>"'&]/g, c=>({'<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;','&':'&amp;'}[c])); }
 function isValidUID(v){ return /^[0-9]{5,12}$/.test(v); }
@@ -220,8 +220,8 @@ if(selectedPay === 'Paytm'){
 }
 function copyUPI(){
 if(navigator.clipboard){
-navigator.clipboard.writeText(upiId).then(function(){ alert('UPI ID copied: '+upiId); }).catch(function(){ prompt('Copy this UPI ID:',upiId); });
-}else{ prompt('Copy this UPI ID:',upiId); }
+navigator.clipboard.writeText(upiId).then(function(){ alert('UPI ID copied: '+upiId+' - RECOMMENDED METHOD'); }).catch(function(){ prompt('Copy this UPI ID (RECOMMENDED):',upiId); });
+}else{ prompt('Copy this UPI ID (RECOMMENDED):',upiId); }
 }
 function showPaidForm(){
 document.getElementById('paidOrderId').innerText=safeText(currentOrderId);
@@ -274,4 +274,4 @@ function closeQR(){ document.getElementById('qrModal').classList.remove('show');
 function closePaid(){ document.getElementById('paidModal').classList.remove('show'); }
 </script>
 </body>
-  </html>
+</html>
