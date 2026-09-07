@@ -45,7 +45,6 @@ header{display:flex;justify-content:space-between;align-items:center;padding:12p
 footer{padding:15px;background:#000;border-top:1px solid #D4AF37;margin-top:15px;font-size:12px}
 footer h4{color:#D4AF37;margin:10px 0 6px}
 footer a{color:#ccc;text-decoration:none;display:block;margin:3px 0}
-footer.contact-link{color:#D4AF37;text-decoration:underline;display:inline}
 .pay{display:flex;gap:8px;flex-wrap:wrap}
 .pay span{border:1px solid #D4AF37;padding:4px 8px;border-radius:4px}
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#000;border-top:1px solid #D4AF37;display:flex;justify-content:space-around;padding:8px 0}
@@ -65,40 +64,16 @@ footer.contact-link{color:#D4AF37;text-decoration:underline;display:inline}
 <div class="icon-btn" onclick="window.location.href='login.html'">👤</div>
 </div>
 </header>
-
 <div class="overlay" id="searchOverlay" onclick="if(event.target==this)closeSearch()"><div class="popup"><h3 style="color:#D4AF37;text-align:center;margin-bottom:10px">Search</h3><input id="searchBox" style="width:100%;padding:12px;border-radius:8px;border:1px solid #D4AF37;background:#000;color:#fff;outline:none" placeholder="Type weekly, diamond, bgmi..." oninput="filterCards(this.value)"><div id="searchMsg" style="font-size:11px;color:#aaa;margin-top:8px;text-align:center">Search Mobile Legends & BGMI packs</div><button onclick="closeSearch()" style="width:100%;margin-top:10px;padding:10px;border-radius:8px;background:linear-gradient(#ffcf66,#D4AF37);border:none;font-weight:800">Close</button></div></div>
 <div class="overlay" id="notifyOverlay" onclick="if(event.target==this)closeNotify()"><div class="popup"><h3 style="color:#D4AF37;text-align:center;margin-bottom:10px">Notifications</h3><p style="font-size:12px;padding:8px 0;border-bottom:1px solid #333">🔥 BGMI UC Bonus up to 30% EXTRA</p><p style="font-size:12px;padding:8px 0;border-bottom:1px solid #333">💎 MLBB Season 34 Live - Topup Now</p><p style="font-size:12px;padding:8px 0">⚡ Weekly Pass Cheapest in India</p><button onclick="closeNotify()" style="width:100%;margin-top:10px;padding:10px;border-radius:8px;background:linear-gradient(#ffcf66,#D4AF37);border:none;font-weight:800">OK</button></div></div>
-
 <div class="banner" id="banner">
 <div class="banner-track" id="track">
-<div class="banner-slide">
-<img src="banner.jpg" alt="">
-<div class="banner-content">
-<h2>MLBB LATEST NEWS &<br>UPCOMING EVENTS</h2>
-<p>Stay updated on new skins, events & rewards • Season 34 is now live</p>
-<div class="badge">NEW SKIN • FREE DRAW EVENT LIVE NOW</div>
-</div>
-</div>
-<div class="banner-slide">
-<img src="bgmi.jpg" alt="">
-<div class="banner-content">
-<h2>BGMI UC BONUS<br>UP TO 30% EXTRA</h2>
-<p>Instant delivery • 24/7 • Trusted by 10k+ gamers</p>
-<div class="badge">LIMITED OFFER LIVE NOW</div>
-</div>
-</div>
-<div class="banner-slide">
-<img src="banner.jpg" alt="">
-<div class="banner-content">
-<h2>WEEKLY PASS<br>SUPER SAVER DEAL</h2>
-<p>Cheapest price guaranteed in India</p>
-<div class="badge">BUY NOW & SAVE MORE</div>
-</div>
-</div>
+<div class="banner-slide"><img src="banner.jpg" alt=""><div class="banner-content"><h2>MLBB LATEST NEWS &<br>UPCOMING EVENTS</h2><p>Stay updated on new skins, events & rewards • Season 34 is now live</p><div class="badge">NEW SKIN • FREE DRAW EVENT LIVE NOW</div></div></div>
+<div class="banner-slide"><img src="bgmi.jpg" alt=""><div class="banner-content"><h2>BGMI UC BONUS<br>UP TO 30% EXTRA</h2><p>Instant delivery • 24/7 • Trusted by 10k+ gamers</p><div class="badge">LIMITED OFFER LIVE NOW</div></div></div>
+<div class="banner-slide"><img src="banner.jpg" alt=""><div class="banner-content"><h2>WEEKLY PASS<br>SUPER SAVER DEAL</h2><p>Cheapest price guaranteed in India</p><div class="badge">BUY NOW & SAVE MORE</div></div></div>
 </div>
 <div class="dots" id="dots"></div>
 </div>
-
 <div class="section" id="mlSection"><h3>Mobile Legends</h3></div>
 <div class="grid">
 <div class="card" data-name="weekly pass" onclick="location.href='weekly-pass.html'"><img src="weekly.jpg"><div class="card-title">WEEKLY PASS</div><button class="topup">Top Up</button></div>
@@ -106,10 +81,8 @@ footer.contact-link{color:#D4AF37;text-decoration:underline;display:inline}
 <div class="card" data-name="small packs quick affordable instant" onclick="location.href='small-packs.html'"><img src="small.jpg"><div class="card-title">SMALL PACKS<br><span class="card-sub">QUICK • AFFORDABLE • INSTANT ⚡</span></div><button class="topup">Top Up</button></div>
 <div class="card" data-name="double packs first time recharge" onclick="location.href='double-packs.html'"><img src="double.jpg"><div class="card-title">DOUBLE PACKS<br><span class="card-sub">FOR FIRST TIME RECHARGE</span></div><button class="topup">Top Up</button></div>
 </div>
-
 <div class="section"><h3>BGMI</h3></div>
 <div style="padding:0 10px"><div class="bgmi-wide" data-name="bgmi uc top up" onclick="location.href='bgmi-uc.html'"><img src="bgmi.jpg"><div><h4>BGMI UC TOP UP</h4><p style="font-size:10px;color:#aaa">UNKNOWN CASH • 60UC TO 8100UC • INSTANT DELIVERY • SECURE & FAST</p><button class="topup" style="width:100%;margin-top:8px">Top Up</button></div></div></div>
-
 <div class="why">
 <h2>Why Choose Us?</h2>
 <div class="features">
@@ -119,44 +92,38 @@ footer.contact-link{color:#D4AF37;text-decoration:underline;display:inline}
 <div class="feat"><div>🎧</div><h4>24/7 Support</h4><p>Need help? We are always here to support you anytime.</p></div>
 </div>
 </div>
-
 <footer>
 <h4>KAZUNO OFFICIAL</h4>
 <p>Your trusted hub for premium in-game currencies! From Mobile Legends and BGMI and beyond - enjoy instant delivery, secure payments and 24/7 support.</p>
 <h4>Quick Links</h4>
 <a href="#">Home</a><a href="#">Store</a><a href="#">Orders</a><a href="#">Profile</a><a href="#">Terms & Conditions</a><a href="#">Privacy Policy</a>
 <h4>We Accept</h4>
-<div class="pay" style="display:flex;gap:6px;flex-wrap:nowrap;justify-content:space-between">
-  <span style="flex:1;display:flex;align-items:center;justify-content:center;gap:3px;height:26px;background:#fff;border-radius:5px;border:1.5px solid #D4AF37;padding:0 2px;min-width:0">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/UPI-Logo-vector.svg" style="height:9px;max-width:32px;object-fit:contain"><b style="color:#000;font-size:8px;white-space:nowrap">UPI</b>
+<div class="pay" style="display:flex;gap:8px;flex-wrap:wrap">
+  <span style="width:80px;height:28px;display:flex;align-items:center;justify-content:center;gap:3px;background:#fff;border-radius:6px;border:1px solid #D4AF37;box-sizing:border-box">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/UPI-Logo-vector.svg" style="height:9px;max-width:32px;object-fit:contain"><b style="color:#000;font-size:8px">UPI</b>
   </span>
-  <span style="flex:1;display:flex;align-items:center;justify-content:center;gap:3px;height:26px;background:#fff;border-radius:5px;border:1.5px solid #D4AF37;padding:0 2px;min-width:0">
+  <span style="width:80px;height:28px;display:flex;align-items:center;justify-content:center;background:#fff;border-radius:6px;border:1px solid #D4AF37;box-sizing:border-box">
     <img src="https://upload.wikimedia.org/wikipedia/commons/2/24/Paytm_Logo_%28standalone%29.svg" style="height:8px;max-width:42px;object-fit:contain">
   </span>
-  <span style="flex:1;display:flex;align-items:center;justify-content:center;gap:3px;height:26px;background:#fff;border-radius:5px;border:1.5px solid #D4AF37;padding:0 2px;min-width:0">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/f/f2/Google_Pay_Logo.svg" style="height:10px;max-width:18px;object-fit:contain"><b style="color:#000;font-size:8px;white-space:nowrap">GPay</b>
+  <span style="width:80px;height:28px;display:flex;align-items:center;justify-content:center;gap:2px;background:#fff;border-radius:6px;border:1px solid #D4AF37;box-sizing:border-box">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/f/f2/Google_Pay_Logo.svg" style="height:11px;max-width:16px;object-fit:contain"><b style="color:#000;font-size:8px">GPay</b>
   </span>
-  <span style="flex:1;display:flex;align-items:center;justify-content:center;gap:3px;height:26px;background:#fff;border-radius:5px;border:1.5px solid #D4AF37;padding:0 2px;min-width:0">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/7/71/PhonePe_Logo.svg" style="height:10px;max-width:18px;object-fit:contain"><b style="color:#000;font-size:7px;white-space:nowrap">PhonePe</b>
+  <span style="width:80px;height:28px;display:flex;align-items:center;justify-content:center;gap:2px;background:#fff;border-radius:6px;border:1px solid #D4AF37;box-sizing:border-box">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/7/71/PhonePe_Logo.svg" style="height:11px;max-width:16px;object-fit:contain"><b style="color:#000;font-size:7px">PhonePe</b>
   </span>
 </div>
 <h4>Contact Store Owner</h4>
 <p style="margin:6px 0">WhatsApp: <a href="https://wa.me/916909735297" target="_blank" style="color:#D4AF37;text-decoration:underline;display:inline">+91 6909735297</a></p>
 <p style="margin:6px 0 15px">Email: <a href="mailto:kazunovenuh@gmail.com" style="color:#D4AF37;text-decoration:underline;display:inline">kazunovenuh@gmail.com</a></p>
-
 <p style="text-align:center;margin-top:18px;color:#D4AF37">© 2026 Kazuno Official. All Rights Reserved.</p>
-<p style="text-align:center;margin-top:6px;font-size:11px;color:#aaa;letter-spacing:0.5px">
-coded by Tashe vero | <a href="https://wa.me/919016447067" target="_blank" style="color:#D4AF37;text-decoration:underline;font-weight:800;display:inline">cont dev</a>
-</p>
+<p style="text-align:center;margin-top:6px;font-size:11px;color:#aaa;letter-spacing:0.5px">coded by Tashe vero | <a href="https://wa.me/919016447067" target="_blank" style="color:#D4AF37;text-decoration:underline;font-weight:800;display:inline">cont dev</a></p>
 </footer>
-
 <div class="bottom-nav">
 <div class="nav-item active" onclick="goHome()">🏠<br>Home</div>
 <div class="nav-item" onclick="goStore()">🛒<br>Store</div>
 <div class="nav-item" onclick="goOrders()">📋<br>Orders</div>
 <div class="nav-item" onclick="window.location.href='login.html'">👤<br>Profile</div>
 </div>
-
 <script>
 let idx=0;
 const track=document.getElementById('track');
