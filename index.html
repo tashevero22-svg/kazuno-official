@@ -12,7 +12,7 @@ header{display:flex;justify-content:space-between;align-items:center;padding:12p
 .logo img{width:32px;height:32px;border-radius:50%}
 .logo small{display:block;font-size:14px;letter-spacing:2px;color:#D4AF37}
 .icons{display:flex;gap:6px;color:#D4AF37;}
-.icon-btn{font-size:20px;padding:10px 12px;cursor:pointer;border-radius:50%;user-select:none}
+.icon-btn{font-size:20px;padding:10px 12px;cursor:pointer;border-radius:50%;user-select:none; display:flex; align-items:center; justify-content:center; position:relative;}
 .icon-btn:active{background:#222}
 .banner{position:relative;margin:12px;border:1px solid #D4AF37;border-radius:12px;overflow:hidden;height:180px;background:#000; touch-action: pan-y;}
 .banner-track{display:flex;transition:transform 0.5s ease; height:100%}
@@ -60,9 +60,19 @@ footer.contact-link{color:#D4AF37;text-decoration:underline;display:inline}
 <header>
 <div class="logo"><img src="logo.png" onerror="this.style.display='none'"> <div>KAZUNO<br><small>OFFICIAL</small></div></div>
 <div class="icons">
-<div class="icon-btn" onclick="openSearch()">🔍</div>
-<div class="icon-btn" onclick="openNotify()">🔔</div>
-<div class="icon-btn" onclick="window.location.href='login.html'">👤</div>
+<!-- SEARCH 2 - White -->
+<div class="icon-btn" onclick="openSearch()">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><path d="M11 8a3 3 0 0 1 3 3" stroke-width="2.2"></path><line x1="21" y1="21" x2="16.3" y2="16.3" stroke-width="2.5"></line></svg>
+</div>
+<!-- BELL 2 - White with yellow dot -->
+<div class="icon-btn" onclick="openNotify()">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 6 5 6 10H0s6-3 6-10"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg>
+<span style="position:absolute; top:6px; right:6px; width:10px; height:10px; background:#FFC107; border-radius:50%; border:2px solid #000;"></span>
+</div>
+<!-- PROFILE 3 - White outline -->
+<div class="icon-btn" onclick="window.location.href='login.html'">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4.5"></circle><path d="M4 20c0-4 3.5-7 8-7s8 3 8 7v1H4v-1z"></path></svg>
+</div>
 </div>
 </header>
 
